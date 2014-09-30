@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table (name = "failed_movies", schema = "", catalog = "movg")
+@Table (name = "failed_movies")
 public class FailedMovie implements Serializable
 {
     @Id
@@ -118,6 +118,5 @@ public class FailedMovie implements Serializable
         result = 31 * result + (tmdbId != null ? tmdbId.hashCode() : 0);
         return result;
     }
-
-//endregion
+    //endregion
 }
