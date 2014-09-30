@@ -14,9 +14,7 @@ public class MovieSiteJobListener implements JobExecutionListener
     Logger logger = Logger.getLogger(getClass().toString());
 
     @Override
-    public void beforeJob(JobExecution jobExecution)
-    {
-    }
+    public void beforeJob(JobExecution jobExecution) {}
 
     @Override
     public void afterJob(JobExecution jobExecution)
@@ -36,6 +34,5 @@ public class MovieSiteJobListener implements JobExecutionListener
             logger.info("Job execution finished with exit status " + jobExecution.getExitStatus().toString());
         else
             logger.severe("Job execution finished with exit status " + jobExecution.getExitStatus().toString());
-
     }
 }

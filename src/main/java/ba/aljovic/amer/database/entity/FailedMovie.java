@@ -29,8 +29,6 @@ public class FailedMovie implements Serializable
     private Integer tmdbId;
 
     //region GETTERS & SETTERS
-
-
     public Integer getId()
     {
         return id;

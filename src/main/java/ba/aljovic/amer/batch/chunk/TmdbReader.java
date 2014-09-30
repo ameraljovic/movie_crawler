@@ -54,7 +54,5 @@ public class TmdbReader implements ItemStreamReader<Movie>
     }
 
     @Override
-    public void close() throws ItemStreamException
-    {
-    }
+    public void close() throws ItemStreamException {}
 }

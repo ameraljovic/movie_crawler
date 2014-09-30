@@ -17,14 +17,10 @@ public class MovieSiteProcessorListener implements ItemProcessListener<Movie, Mo
     MovieFacade movieFacade;
 
     @Override
-    public void beforeProcess(Movie item)
-    {
-    }
+    public void beforeProcess(Movie item) {}
 
     @Override
-    public void afterProcess(Movie item, Movie result)
-    {
-    }
+    public void afterProcess(Movie item, Movie result) {}
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)

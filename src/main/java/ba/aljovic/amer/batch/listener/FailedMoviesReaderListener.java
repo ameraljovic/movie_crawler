@@ -18,14 +18,10 @@ public class FailedMoviesReaderListener implements ItemReadListener<Movie>
     MovieFacade movieFacade;
 
     @Override
-    public void beforeRead()
-    {
-    }
+    public void beforeRead() {}
 
     @Override
-    public void afterRead(Movie item)
-    {
-    }
+    public void afterRead(Movie item) {}
 
     @Override
     @Transactional (propagation = Propagation.REQUIRES_NEW)

@@ -61,7 +61,7 @@ public class MovieSiteJobConfiguration extends JobConfiguration
     @Bean
     @StepScope
     public ItemStreamReader<Movie> tmdbReader(@Value ("#{stepExecutionContext['fromId']}") Integer fromId,
-                                 @Value("#{stepExecutionContext['toId']}") Integer toId)
+                                              @Value("#{stepExecutionContext['toId']}") Integer toId)
     {
         return new TmdbReader(fromId, toId);
     }
