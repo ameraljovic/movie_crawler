@@ -1,7 +1,6 @@
 package ba.aljovic.amer.configuration;
 
 
-import ba.aljovic.amer.component.HibernateExtendedJpaDialect;
 import ba.aljovic.amer.database.DatabaseProperties;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaDialect;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -48,11 +46,5 @@ public class DatabaseConfiguration
         adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
 
         return adapter;
-    }
-
-    @Bean
-    public JpaDialect jpaDialect()
-    {
-        return new HibernateExtendedJpaDialect();
     }
 }
