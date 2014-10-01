@@ -51,7 +51,7 @@ public class BatchController
         {
             jobOperator.stop(executionId);
         }
-        return "jobName + \" successfully stopped.";
+        return jobName + " successfully stopped.";
     }
 
 }
