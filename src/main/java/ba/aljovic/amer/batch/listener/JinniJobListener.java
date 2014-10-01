@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.logging.Logger;
 
 @Component
-public class MovieSiteJobListener implements JobExecutionListener
+public class JinniJobListener implements JobExecutionListener
 {
     Logger logger = Logger.getLogger(getClass().toString());
 

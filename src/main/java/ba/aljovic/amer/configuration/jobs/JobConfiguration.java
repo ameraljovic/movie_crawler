@@ -26,10 +26,10 @@ public class JobConfiguration
     protected StepBuilderFactory stepBuilder;
 
     @Autowired
-    protected ItemProcessListener<Movie, Movie> movieSiteProcessorListener;
+    protected ItemProcessListener<Movie, Movie> jinniProcessorListener;
 
     @Autowired
-    protected JobExecutionListener movieSiteJobListener;
+    protected JobExecutionListener jinniJobListener;
 
     @Autowired
     protected TaskExecutor stepAsyncTaskExecutor;

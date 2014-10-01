@@ -1,7 +1,7 @@
 package ba.aljovic.amer.logging;
 
 import ba.aljovic.amer.database.entity.Movie;
-import ba.aljovic.amer.exception.MovieNotFoundException;
+import ba.aljovic.amer.exception.JinniMovieNotFoundException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,7 +17,7 @@ public class ProcessorLogger
 {
     private Logger logger = Logger.getLogger(getClass().toString());
 
-    @Around (value = "execution(* ba.aljovic.amer.component.service.MovieSiteParser.parse(String, String, String, Integer))" +
+    @Around (value = "execution(* ba.aljovic.amer.component.service.JinniParser.parse(String, String, String, Integer))" +
             "&& args(title, url, imdbId, tmdbId)", argNames = "joinPoint,title,url,imdbId,tmdbId")
     public Movie parseMovie(ProceedingJoinPoint joinPoint, String title, String url, String imdbId, Integer tmdbId)
             throws Throwable
@@ -31,7 +31,7 @@ public class ProcessorLogger
 
             logger.info("PROCESSOR:Successfully extracted genomes from movie '" + title + "'");
         }
-        catch (MovieNotFoundException exception)
+        catch (JinniMovieNotFoundException exception)
         {
             logger.warning("PROCESSOR:Could not construct url for movie '" + title +
                     "' with url '" + url + "'");

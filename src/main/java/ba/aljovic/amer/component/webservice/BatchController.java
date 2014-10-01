@@ -1,7 +1,7 @@
 package ba.aljovic.amer.component.webservice;
 
 import ba.aljovic.amer.batch.launcher.FailedMoviesJobLauncher;
-import ba.aljovic.amer.batch.launcher.MovieSiteJobLauncher;
+import ba.aljovic.amer.batch.launcher.JinniJobLauncher;
 import org.springframework.batch.core.launch.JobExecutionNotRunningException;
 import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.batch.core.launch.NoSuchJobException;
@@ -18,7 +18,7 @@ import java.util.Set;
 public class BatchController
 {
     @Autowired
-    private MovieSiteJobLauncher movieSiteJobLauncher;
+    private JinniJobLauncher jinniJobLauncher;
 
     @Autowired
     FailedMoviesJobLauncher failedMoviesJobLauncher;
@@ -27,10 +27,10 @@ public class BatchController
     private JobOperator jobOperator;
 
     @RequestMapping(value = "/crawl/from/{fromId}/to/{toId}", method = RequestMethod.GET)
-    public String launchMovieSiteJob(@PathVariable Long fromId,
-                                     @PathVariable Long toId) throws Exception
+    public String launchJinniJob(@PathVariable Long fromId,
+                                 @PathVariable Long toId) throws Exception
     {
-        movieSiteJobLauncher.launch(fromId, toId);
+        jinniJobLauncher.launch(fromId, toId);
         return "Crawling job started";
     }
 

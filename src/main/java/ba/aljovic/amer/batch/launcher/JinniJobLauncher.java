@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MovieSiteJobLauncher extends ba.aljovic.amer.batch.launcher.BaseJobLauncher
+public class JinniJobLauncher extends ba.aljovic.amer.batch.launcher.BaseJobLauncher
 {
     @Autowired
-    private Job movieSiteJob;
+    private Job jinniJob;
 
     public void launch(Long fromId, Long range) throws Exception
     {
         JobParameters jobParameters = createJobParameters(fromId, range);
-        jobLauncher.run(movieSiteJob, jobParameters);
+        jobLauncher.run(jinniJob, jobParameters);
     }
 }

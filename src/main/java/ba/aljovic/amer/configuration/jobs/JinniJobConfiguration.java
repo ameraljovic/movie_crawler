@@ -1,10 +1,10 @@
 package ba.aljovic.amer.configuration.jobs;
 
-import ba.aljovic.amer.batch.chunk.MovieSiteWriter;
-import ba.aljovic.amer.batch.chunk.MovieSiteProcessor;
+import ba.aljovic.amer.batch.chunk.JinniProcessor;
+import ba.aljovic.amer.batch.chunk.JinniWriter;
 import ba.aljovic.amer.batch.chunk.TmdbReader;
 import ba.aljovic.amer.database.entity.Movie;
-import ba.aljovic.amer.exception.MovieNotFoundException;
+import ba.aljovic.amer.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.exception.TmdbMovieNotFoundException;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -17,44 +17,44 @@ import org.springframework.context.annotation.Configuration;
 import java.net.SocketTimeoutException;
 
 @Configuration
-public class MovieSiteJobConfiguration extends JobConfiguration
+public class JinniJobConfiguration extends JobConfiguration
 {
     @Bean
-    public Step movieSiteSlaveStep()
+    public Step jinniSlaveStep()
     {
-        return stepBuilder.get("movieSiteSlaveStep")
+        return stepBuilder.get("jinniSlaveStep")
                 .<Movie, Movie>chunk(5)
                 .reader(tmdbReader(0, 10))
-                .processor(movieSiteProcessor())
-                .writer(movieSiteWriter())
+                .processor(jinniProcessor())
+                .writer(jinniWriter())
                 .faultTolerant()
                 .skip(TmdbMovieNotFoundException.class)
-                .skip(MovieNotFoundException.class)
+                .skip(JinniMovieNotFoundException.class)
                 .skipLimit(100000)
                 .retry(SocketTimeoutException.class)
                 .retryLimit(10000)
-                .listener(movieSiteProcessorListener)
+                .listener(jinniProcessorListener)
                 .build();
     }
 
     @Bean
-    public Step movieSiteMasterStep()
+    public Step jinniMasterStep()
     {
-        return stepBuilder.get("movieSiteMasterStep")
-                .partitioner(movieSiteSlaveStep())
-                .partitioner("movieSiteSlaveStep", rangePartitioner(null, null))
+        return stepBuilder.get("jinniMasterStep")
+                .partitioner(jinniSlaveStep())
+                .partitioner("jinniSlaveStep", rangePartitioner(null, null))
                 .taskExecutor(stepAsyncTaskExecutor)
                 .gridSize(1)
                 .build();
     }
 
     @Bean
-    public Job movieSiteJob()
+    public Job jinniJob()
     {
-        return jobBuilder.get("movieSiteJob")
+        return jobBuilder.get("jinniJob")
                 .incrementer(incrementer())
-                .listener(movieSiteJobListener)
-                .start(movieSiteMasterStep())
+                .listener(jinniJobListener)
+                .start(jinniMasterStep())
                 .build();
     }
 
@@ -67,14 +67,14 @@ public class MovieSiteJobConfiguration extends JobConfiguration
     }
 
     @Bean
-    public MovieSiteProcessor movieSiteProcessor()
+    public JinniProcessor jinniProcessor()
     {
-        return new MovieSiteProcessor();
+        return new JinniProcessor();
     }
 
     @Bean
-    public MovieSiteWriter movieSiteWriter()
+    public JinniWriter jinniWriter()
     {
-        return new MovieSiteWriter();
+        return new JinniWriter();
     }
 }

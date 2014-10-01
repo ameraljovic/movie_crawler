@@ -3,7 +3,7 @@ package ba.aljovic.amer.batch.listener;
 import ba.aljovic.amer.database.MovieFacade;
 import ba.aljovic.amer.database.entity.Movie;
 import ba.aljovic.amer.database.entity.StatusEnum;
-import ba.aljovic.amer.exception.MovieNotFoundException;
+import ba.aljovic.amer.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.exception.SuspiciousMovieException;
 import org.springframework.batch.core.ItemReadListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +32,10 @@ public class FailedMoviesReaderListener implements ItemReadListener<Movie>
             SuspiciousMovieException suspiciousMovieException = (SuspiciousMovieException)exception;
             movieFacade.updateFailedMovieStatus(suspiciousMovieException.getId(), StatusEnum.SUSPICIOUS);
         }
-        else if (exception.getClass() == MovieNotFoundException.class)
+        else if (exception.getClass() == JinniMovieNotFoundException.class)
         {
-            MovieNotFoundException movieNotFoundException = (MovieNotFoundException)exception;
-            movieFacade.updateFailedMovieStatus(movieNotFoundException.getId(), StatusEnum.FAILED);
+            JinniMovieNotFoundException jinniMovieNotFoundException = (JinniMovieNotFoundException)exception;
+            movieFacade.updateFailedMovieStatus(jinniMovieNotFoundException.getId(), StatusEnum.FAILED);
         }
     }
 }

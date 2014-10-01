@@ -1,7 +1,7 @@
 package ba.aljovic.amer;
 
 import ba.aljovic.amer.component.service.MovieRetriever;
-import ba.aljovic.amer.exception.MovieNotFoundException;
+import ba.aljovic.amer.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.exception.SuspiciousMovieException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,13 +22,13 @@ public class FailedMoviesReaderTest
     private MovieRetriever movieRetriever;
 
     @Test
-    public void test1() throws SuspiciousMovieException, IOException, MovieNotFoundException
+    public void test1() throws SuspiciousMovieException, IOException, JinniMovieNotFoundException
     {
         movieRetriever.retrieveUrlBySearch("Star Wars: Episode IV - A New Hope");
     }
 
     @Test
-    public void test2() throws SuspiciousMovieException, IOException, MovieNotFoundException
+    public void test2() throws SuspiciousMovieException, IOException, JinniMovieNotFoundException
     {
         movieRetriever.retrieveUrlBySearch("The Matrix Reloaded");
     }

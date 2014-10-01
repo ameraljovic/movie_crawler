@@ -1,6 +1,6 @@
 package ba.aljovic.amer.component.service;
 
-import ba.aljovic.amer.exception.MovieNotFoundException;
+import ba.aljovic.amer.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.exception.SuspiciousMovieException;
 import ba.aljovic.amer.exception.TmdbMovieNotFoundException;
 import org.apache.http.NameValuePair;
@@ -23,7 +23,7 @@ public class MovieRetriever
 
     @Autowired private HttpRetriever httpRetriever;
     @Autowired private JSONParser jsonParser;
-    @Autowired private MovieSiteParser movieSiteParser;
+    @Autowired private JinniParser jinniParser;
 
     public MovieRetriever()
     {
@@ -53,7 +53,7 @@ public class MovieRetriever
     }
 
     public String retrieveUrlBySearch(String title)
-            throws IOException, MovieNotFoundException, SuspiciousMovieException
+            throws IOException, JinniMovieNotFoundException, SuspiciousMovieException
     {
         String searchUrl = "http://www.jinni.com/discovery/all/explore/";
 
@@ -72,9 +72,9 @@ public class MovieRetriever
         urlParameters.add(new BasicNameValuePair("auditSelected", ""));
 
         String html = httpRetriever.searchMovie(searchUrl, urlParameters);
-        String movieUrl = movieSiteParser.parseHtml(html);
+        String movieUrl = jinniParser.parseHtml(html);
         if (movieUrl == null)
-            throw new MovieNotFoundException(title);
+            throw new JinniMovieNotFoundException(title);
         return movieUrl;
     }
 

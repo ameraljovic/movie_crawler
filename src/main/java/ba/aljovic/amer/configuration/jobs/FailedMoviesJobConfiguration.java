@@ -2,11 +2,11 @@ package ba.aljovic.amer.configuration.jobs;
 
 import ba.aljovic.amer.batch.chunk.FailedMoviesReader;
 import ba.aljovic.amer.batch.chunk.FailedMoviesWriter;
-import ba.aljovic.amer.batch.chunk.MovieSiteProcessor;
+import ba.aljovic.amer.batch.chunk.JinniProcessor;
 import ba.aljovic.amer.component.service.MovieRetriever;
 import ba.aljovic.amer.database.MovieFacade;
 import ba.aljovic.amer.database.entity.Movie;
-import ba.aljovic.amer.exception.MovieNotFoundException;
+import ba.aljovic.amer.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.exception.SuspiciousMovieException;
 import org.springframework.batch.core.ItemReadListener;
 import org.springframework.batch.core.Job;
@@ -49,7 +49,7 @@ public class FailedMoviesJobConfiguration extends JobConfiguration
                 .processor(failedMoviesProcessor())
                 .writer(failedMoviesWriter())
                 .faultTolerant()
-                .skip(MovieNotFoundException.class)
+                .skip(JinniMovieNotFoundException.class)
                 .skip(SuspiciousMovieException.class)
                 .skip(SocketTimeoutException.class)
                 .skipLimit(100000)
@@ -64,7 +64,7 @@ public class FailedMoviesJobConfiguration extends JobConfiguration
     {
         return jobBuilder.get("failedMoviesJob")
                 .incrementer(jobIncrementer())
-                .listener(movieSiteJobListener)
+                .listener(jinniJobListener)
                 .start(failedMoviesStep())
                 .build();
     }
@@ -82,9 +82,9 @@ public class FailedMoviesJobConfiguration extends JobConfiguration
     }
 
     @Bean
-    public MovieSiteProcessor failedMoviesProcessor()
+    public JinniProcessor failedMoviesProcessor()
     {
-        return new MovieSiteProcessor();
+        return new JinniProcessor();
     }
 
     @Bean

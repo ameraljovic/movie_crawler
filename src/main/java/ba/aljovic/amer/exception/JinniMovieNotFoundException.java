@@ -1,27 +1,27 @@
 package ba.aljovic.amer.exception;
 
 @SuppressWarnings ("UnusedDeclaration")
-public class MovieNotFoundException extends Exception
+public class JinniMovieNotFoundException extends Exception
 {
     private final String movieTitle;
     private final String url;
     private final Integer id;
 
-    public MovieNotFoundException(String movieTitle, String url, Integer id)
+    public JinniMovieNotFoundException(String movieTitle, String url, Integer id)
     {
         this.movieTitle = movieTitle;
         this.url = url;
         this.id = id;
     }
 
-    public MovieNotFoundException(String movieTitle, String url)
+    public JinniMovieNotFoundException(String movieTitle, String url)
     {
         this.movieTitle = movieTitle;
         this.url = url;
         this.id = null;
     }
 
-    public MovieNotFoundException(String movieTitle)
+    public JinniMovieNotFoundException(String movieTitle)
     {
         this.movieTitle = movieTitle;
         this.url = null;

@@ -4,7 +4,7 @@ import ba.aljovic.amer.component.service.MovieRetriever;
 import ba.aljovic.amer.database.MovieFacade;
 import ba.aljovic.amer.database.entity.FailedMovie;
 import ba.aljovic.amer.database.entity.Movie;
-import ba.aljovic.amer.exception.MovieNotFoundException;
+import ba.aljovic.amer.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.exception.SuspiciousMovieException;
 import org.springframework.batch.item.ItemReader;
 
@@ -53,9 +53,9 @@ public class FailedMoviesReader implements ItemReader<Movie>
         {
             throw new SuspiciousMovieException(fm.getId());
         }
-        catch (MovieNotFoundException e)
+        catch (JinniMovieNotFoundException e)
         {
-            throw new MovieNotFoundException(fm.getTitle(), fm.getUrl(), fm.getId());
+            throw new JinniMovieNotFoundException(fm.getTitle(), fm.getUrl(), fm.getId());
         }
         catch (SocketTimeoutException e)
         {

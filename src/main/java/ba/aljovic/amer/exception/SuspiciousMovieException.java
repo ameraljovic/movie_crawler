@@ -8,9 +8,7 @@ public class SuspiciousMovieException extends Exception
     {
         this.id = id;
     }
-    public SuspiciousMovieException()
-    {
-    }
+    public SuspiciousMovieException() {}
 
     public Integer getId()
     {

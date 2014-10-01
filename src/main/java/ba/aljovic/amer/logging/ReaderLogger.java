@@ -1,6 +1,6 @@
 package ba.aljovic.amer.logging;
 
-import ba.aljovic.amer.exception.MovieNotFoundException;
+import ba.aljovic.amer.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.exception.SuspiciousMovieException;
 import ba.aljovic.amer.exception.TmdbMovieNotFoundException;
 import org.apache.http.conn.ConnectTimeoutException;
@@ -71,7 +71,7 @@ public class ReaderLogger
             logger.info("READER:URL '" + url + "' for movie '" + title + "' successfully constructed");
             return url;
         }
-        catch (MovieNotFoundException exception)
+        catch (JinniMovieNotFoundException exception)
         {
             logger.info("READER:Could not construct url for movie '" + title + "'");
             throw exception;

@@ -2,7 +2,7 @@ package ba.aljovic.amer.component.service;
 
 import ba.aljovic.amer.database.entity.Genome;
 import ba.aljovic.amer.database.entity.Movie;
-import ba.aljovic.amer.exception.MovieNotFoundException;
+import ba.aljovic.amer.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.exception.SuspiciousMovieException;
 import org.apache.http.HttpStatus;
 import org.jsoup.HttpStatusException;
@@ -15,19 +15,19 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class MovieSiteParser
+public class JinniParser
 {
-    private static final String MOVIE_SITE_BASE_URL = "http://www.jinni.com";
+    private static final String JINNI_BASE_URL = "http://www.jinni.com";
     public static final int TIMEOUT_IN_MILLIS = 1500;
 
     public Movie parse(String title, String titleUrl, String imdbId, Integer tmdbId)
-            throws MovieNotFoundException, IOException
+            throws JinniMovieNotFoundException, IOException
     {
         Document doc;
         Movie movie = new Movie(title, imdbId, tmdbId, titleUrl);
         try
         {
-            doc = Jsoup.connect(MOVIE_SITE_BASE_URL + "/movies/" + titleUrl).timeout(TIMEOUT_IN_MILLIS).get();
+            doc = Jsoup.connect(JINNI_BASE_URL + "/movies/" + titleUrl).timeout(TIMEOUT_IN_MILLIS).get();
             Elements elGenomes = doc.select(".right_genomeGroup");
 
             for (Element elGenome : elGenomes)
@@ -47,7 +47,7 @@ public class MovieSiteParser
         catch (HttpStatusException exception)
         {
             if (exception.getStatusCode() == HttpStatus.SC_NOT_FOUND)
-                throw new MovieNotFoundException(title, titleUrl);
+                throw new JinniMovieNotFoundException(title, titleUrl);
             else
                 throw exception;
         }
