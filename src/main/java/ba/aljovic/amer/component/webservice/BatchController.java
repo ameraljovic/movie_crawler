@@ -2,6 +2,7 @@ package ba.aljovic.amer.component.webservice;
 
 import ba.aljovic.amer.batch.launcher.FailedMoviesJobLauncher;
 import ba.aljovic.amer.batch.launcher.JinniJobLauncher;
+import ba.aljovic.amer.database.MovieFacade;
 import org.springframework.batch.core.launch.JobExecutionNotRunningException;
 import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.batch.core.launch.NoSuchJobException;
@@ -25,6 +26,9 @@ public class BatchController
 
     @Autowired
     private JobOperator jobOperator;
+
+    @Autowired
+    MovieFacade movieFacade;
 
     @RequestMapping(value = "/crawl/from/{fromId}/range/{range}", method = RequestMethod.GET)
     public String launchJinniJob(@PathVariable Long fromId,
@@ -52,6 +56,13 @@ public class BatchController
             jobOperator.stop(executionId);
         }
         return jobName + " successfully stopped.";
+    }
+
+    @RequestMapping(value = "/resetDatabase", method = RequestMethod.GET)
+    public String resetDatabase()
+    {
+        movieFacade.deleteALl();
+        return "Deleted all tables";
     }
 
 }
