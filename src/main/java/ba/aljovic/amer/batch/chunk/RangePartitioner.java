@@ -21,6 +21,7 @@ public class RangePartitioner implements Partitioner
     @Override
     public Map<String, ExecutionContext> partition(int gridSize)
     {
+        assert gridSize > 0;
         Map<String, ExecutionContext> result = new HashMap<>();
         for (int i = 1; i <= gridSize; i++)
         {
