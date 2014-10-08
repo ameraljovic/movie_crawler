@@ -26,19 +26,19 @@ public class BatchController
     @Autowired
     private JobOperator jobOperator;
 
-    @RequestMapping(value = "/crawl/from/{fromId}/to/{toId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/crawl/from/{fromId}/range/{range}", method = RequestMethod.GET)
     public String launchJinniJob(@PathVariable Long fromId,
-                                 @PathVariable Long toId) throws Exception
+                                 @PathVariable Long range) throws Exception
     {
-        jinniJobLauncher.launch(fromId, toId);
+        jinniJobLauncher.launch(fromId, range);
         return "Crawling job started";
     }
 
-    @RequestMapping(value = "/failedMovies/from/{fromId}/to/{toId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/failedMovies/from/{fromId}/range/{range}", method = RequestMethod.GET)
     public String launchFailedMoviesJob(@PathVariable Long fromId,
-                                        @PathVariable Long toId) throws Exception
+                                        @PathVariable Long range) throws Exception
     {
-        failedMoviesJobLauncher.launch(fromId, toId);
+        failedMoviesJobLauncher.launch(fromId, range);
         return "Failed movies job started";
     }
 
