@@ -12,31 +12,50 @@ import java.util.List;
 public class MovieFacade
 {
     @Autowired
-    MovieRepository movieRepository;
+    MoviesRepository moviesRepository;
+
+    @Autowired
+    FailedMoviesRepository failedMoviesRepository;
 
     public void insertMovie(Movie movie)
     {
-        movieRepository.save(movie);
+        moviesRepository.save(movie);
     }
 
     public void insertFailedMovie(Movie movie, StatusEnum status)
     {
-        movieRepository.saveFailed(movie, status);
+        FailedMovie failedMovie = new FailedMovie();
+        failedMovie.setTitle(movie.getTitle());
+        failedMovie.setUrl(movie.getUrl());
+        failedMovie.setImdbId(movie.getImdbId());
+        failedMovie.setTmdbId(movie.getTmdbId());
+        failedMovie.setStatusId(status.getStatusCode());
+
+        failedMoviesRepository.save(failedMovie);
     }
 
     public List<FailedMovie> getFailedMovies()
     {
-        return movieRepository.getFailedMovies();
+        return failedMoviesRepository.findByStatusId(StatusEnum.UNKNOWN.getStatusCode());
     }
 
     public void updateFailedMovieStatus(Integer id, StatusEnum status)
     {
-        movieRepository.updateFailedMovieStatus(id, status);
+        FailedMovie failedMovie = failedMoviesRepository.findOne(id);
+        failedMovie.setStatusId(status.getStatusCode());
+        failedMoviesRepository.save(failedMovie);
     }
 
     public void recoverFailedMovie(Movie movie)
     {
-        movieRepository.recoverFailedMovie(movie);
-        movieRepository.save(movie);
+        FailedMovie failedMovie = failedMoviesRepository.findByTitle(movie.getTitle());
+        failedMovie.setStatusId(StatusEnum.RECOVERED.getStatusCode());
+        failedMovie.setUrl(movie.getUrl());
+    }
+
+    public void deleteALl()
+    {
+        moviesRepository.deleteAll();
+        failedMoviesRepository.deleteAll();
     }
 }

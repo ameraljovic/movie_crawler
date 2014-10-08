@@ -15,7 +15,7 @@ public class WriterLogger
 {
     private Logger logger = Logger.getLogger(getClass().toString());
 
-    @Around ("execution(* ba.aljovic.amer.database.MovieRepository.save(ba.aljovic.amer.database.entity.Movie)) " +
+    @Around ("execution(* ba.aljovic.amer.database.MovieFacade.insertMovie(ba.aljovic.amer.database.entity.Movie)) " +
             "&& args(movie)")
     public void insertMovie(ProceedingJoinPoint joinPoint, Movie movie)
     {
@@ -33,7 +33,7 @@ public class WriterLogger
 
     }
 
-    @Around("execution(* ba.aljovic.amer.database.MovieRepository.saveFailed(String, String, boolean))" +
+    @Around("execution(* ba.aljovic.amer.database.MovieFacade.insertFailedMovie(String, String, boolean))" +
             "&& args(title, url, status)")
     public void insertFailedMovie(ProceedingJoinPoint joinPoint, String title, String url, boolean status)
     {
@@ -50,7 +50,7 @@ public class WriterLogger
         }
     }
 
-    @Around("execution(* ba.aljovic.amer.database.MovieRepository.updateFailedMovieStatus(" +
+    @Around("execution(* ba.aljovic.amer.database.MovieFacade.updateFailedMovieStatus(" +
             "Integer, ba.aljovic.amer.database.entity.StatusEnum)) && args(id, status)")
     public void updateFailedMovieStatus(ProceedingJoinPoint joinPoint, Integer id, StatusEnum status)
     {
@@ -67,7 +67,7 @@ public class WriterLogger
         }
     }
 
-    @Around("execution(* ba.aljovic.amer.database.MovieRepository.recoverFailedMovie(ba.aljovic.amer.database.entity.Movie)) " +
+    @Around("execution(* ba.aljovic.amer.database.MovieFacade.recoverFailedMovie(ba.aljovic.amer.database.entity.Movie)) " +
             "&& args(movie)")
     public void recoverFailedMovie(ProceedingJoinPoint joinPoint, Movie movie)
     {
