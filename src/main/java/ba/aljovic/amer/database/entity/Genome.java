@@ -16,7 +16,7 @@ public class Genome
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "genome", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "genome", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Collection<GenomeValue> genomes;
 
     @ManyToOne

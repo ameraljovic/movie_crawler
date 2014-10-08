@@ -25,7 +25,7 @@ public class Movie
     @Column(name = "url")
     private String url;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "movie", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Collection<Genome> genomes;
 
     public Movie()
