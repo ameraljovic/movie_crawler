@@ -1,17 +1,19 @@
 package ba.aljovic.amer.component.service;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,27 +22,41 @@ import java.util.List;
 @Component
 class HttpRetriever
 {
+    private CloseableHttpClient httpClient;
+
+    @PostConstruct
+    public void init()
+    {
+        HttpClientBuilder clientBuilder = HttpClientBuilder.create();
+        httpClient = clientBuilder.build();
+    }
+
     public String retrieveDocument(String url) throws IOException
     {
         HttpGet getRequest = new HttpGet(url);
         getRequest.addHeader("Accept", "application/json");
-        HttpClientBuilder clientBuilder = HttpClientBuilder.create();
-        CloseableHttpClient httpClient = clientBuilder.build();
-        HttpResponse getResponse = httpClient.execute(getRequest);
-        final int statusCode = getResponse.getStatusLine().getStatusCode();
+        HttpClientContext context = HttpClientContext.create();
+        CloseableHttpResponse response = httpClient.execute(getRequest, context);
+        try
+        {
+            final int statusCode = response.getStatusLine().getStatusCode();
 
-        if (statusCode != HttpStatus.SC_OK)
-            return null;
+            if (statusCode != HttpStatus.SC_OK)
+                return null;
 
-        HttpEntity getResponseEntity = getResponse.getEntity();
-        return EntityUtils.toString(getResponseEntity);
+            HttpEntity getResponseEntity = response.getEntity();
+
+            return EntityUtils.toString(getResponseEntity);
+        }
+        finally
+        {
+            response.close();
+        }
     }
 
     public String searchMovie(String url, List<NameValuePair> urlParameters) throws IOException
     {
         StringBuffer result;
-        HttpClientBuilder clientBuilder = HttpClientBuilder.create();
-        CloseableHttpClient client = clientBuilder.build();
         HttpPost post = new HttpPost(url);
 
         // add header
@@ -51,16 +67,23 @@ class HttpRetriever
         post.setHeader("Content-Type", "application/x-www-form-urlencoded");
 
         post.setEntity(new UrlEncodedFormEntity(urlParameters));
-        HttpResponse response = client.execute(post);
-        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-        result = new StringBuffer();
-        String line;
-        while ((line = rd.readLine()) != null)
+        CloseableHttpResponse response = httpClient.execute(post);
+        try
         {
-            result.append(line);
-        }
+            BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
-        return result.toString();
+            result = new StringBuffer();
+            String line;
+            while ((line = rd.readLine()) != null)
+            {
+                result.append(line);
+            }
+
+            return result.toString();
+        }
+        finally
+        {
+            response.close();
+        }
     }
 }
