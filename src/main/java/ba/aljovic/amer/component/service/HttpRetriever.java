@@ -34,7 +34,6 @@ class HttpRetriever
     public String retrieveDocument(String url) throws IOException
     {
         HttpGet getRequest = new HttpGet(url);
-        getRequest.addHeader("Accept", "application/json");
         HttpClientContext context = HttpClientContext.create();
         CloseableHttpResponse response = httpClient.execute(getRequest, context);
         try
