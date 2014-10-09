@@ -72,7 +72,7 @@ public class MovieRetriever
         urlParameters.add(new BasicNameValuePair("auditSelected", ""));
 
         String html = httpRetriever.searchMovie(searchUrl, urlParameters);
-        String movieUrl = jinniParser.parseHtml(html);
+        String movieUrl = jinniParser.parseUrl(html);
         if (movieUrl == null)
             throw new JinniMovieNotFoundException(title);
         return movieUrl;

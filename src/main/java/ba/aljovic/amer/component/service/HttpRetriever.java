@@ -20,7 +20,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 @Component
-class HttpRetriever
+public class HttpRetriever
 {
     private CloseableHttpClient httpClient;
 

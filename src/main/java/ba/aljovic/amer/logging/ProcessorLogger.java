@@ -17,35 +17,34 @@ public class ProcessorLogger
 {
     private Logger logger = Logger.getLogger(getClass().toString());
 
-    @Around (value = "execution(* ba.aljovic.amer.component.service.JinniParser.parse(String, String, String, Integer))" +
-            "&& args(title, url, imdbId, tmdbId)", argNames = "joinPoint,title,url,imdbId,tmdbId")
-    public Movie parseMovie(ProceedingJoinPoint joinPoint, String title, String url, String imdbId, Integer tmdbId)
+    @Around (value = "execution(* ba.aljovic.amer.component.service.JinniParser.parseMovie(ba.aljovic.amer.database.entity.Movie, String))" +
+            "&& args(movie, html)", argNames = "joinPoint,movie,html")
+    public Movie parseMovie(ProceedingJoinPoint joinPoint, Movie movie, String html)
             throws Throwable
     {
-        Movie movie;
         try
         {
-            logger.info("PROCESSOR:Parsing movie '" + title + "'.");
+            logger.info("PROCESSOR:Parsing movie '" + movie.getTitle() + "'.");
 
             movie = (Movie) joinPoint.proceed();
 
-            logger.info("PROCESSOR:Successfully extracted genomes from movie '" + title + "'");
+            logger.info("PROCESSOR:Successfully extracted genomes from movie '" + movie.getTitle() + "'");
         }
         catch (JinniMovieNotFoundException exception)
         {
-            logger.warning("PROCESSOR:Could not construct url for movie '" + title +
-                    "' with url '" + url + "'");
+            logger.warning("PROCESSOR:Could not construct url for movie '" + movie.getTitle() +
+                    "' with url '" + movie.getUrl() + "'");
             throw exception;
         }
         catch (SocketTimeoutException exception)
         {
-            logger.warning("PROCESSOR:Socket time out for movie '" + title + "'.");
+            logger.warning("PROCESSOR:Socket time out for movie '" + movie.getTitle() + "'.");
             throw exception;
         }
         catch (HttpStatusException exception)
         {
             logger.severe(
-                    "PROCESSOR:Http error constructing url for movie '" + title + "'. " +
+                    "PROCESSOR:Http error constructing url for movie '" + movie.getTitle() + "'. " +
                             "URL: " + exception.getUrl() + "\n" +
                             "Http status: " + exception.getStatusCode() + "\n"
             );
@@ -53,7 +52,7 @@ public class ProcessorLogger
         }
         catch (Throwable exception)
         {
-            logger.severe("PROCESSOR:Fatal error constructing url for movie '" + title + "'. " +
+            logger.severe("PROCESSOR:Fatal error constructing url for movie '" + movie.getTitle() + "'. " +
                     "Error message: " + exception.getMessage());
             throw exception;
         }
