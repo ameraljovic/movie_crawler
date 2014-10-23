@@ -5,8 +5,6 @@ import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
-
 public class BaseJobLauncher
 {
     @Autowired
@@ -18,7 +16,6 @@ public class BaseJobLauncher
         JobParametersBuilder builder = new JobParametersBuilder();
         builder.addLong("FROM_ID", fromId);
         builder.addLong("RANGE", range);
-        builder.addDate("DATE", new Date());
         jobParameters = builder.toJobParameters();
         return jobParameters;
     }

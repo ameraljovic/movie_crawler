@@ -9,7 +9,7 @@ import ba.aljovic.amer.exception.SuspiciousMovieException;
 import org.springframework.batch.item.ItemReader;
 
 import javax.annotation.PostConstruct;
-import java.net.SocketTimeoutException;
+import java.io.IOException;
 import java.util.List;
 
 public class FailedMoviesReader implements ItemReader<Movie>
@@ -57,7 +57,7 @@ public class FailedMoviesReader implements ItemReader<Movie>
         {
             throw new JinniMovieNotFoundException(fm.getTitle(), fm.getUrl(), fm.getId());
         }
-        catch (SocketTimeoutException e)
+        catch (IOException e )
         {
             // Retry
             currentItemCount--;
