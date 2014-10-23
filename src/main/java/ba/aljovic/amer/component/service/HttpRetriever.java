@@ -3,6 +3,7 @@ package ba.aljovic.amer.component.service;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -22,13 +23,20 @@ import java.util.List;
 @Component
 public class HttpRetriever
 {
+    public static final int TIMEOUT_IN_SECONDS = 5;
     private CloseableHttpClient httpClient;
 
     @PostConstruct
     public void init()
     {
-        HttpClientBuilder clientBuilder = HttpClientBuilder.create();
-        httpClient = clientBuilder.build();
+        RequestConfig config = RequestConfig.custom()
+                .setConnectTimeout(TIMEOUT_IN_SECONDS * 1000)
+                .setSocketTimeout(5 * 1000)
+                .setConnectionRequestTimeout(5 * 1000)
+                .build();
+        httpClient = HttpClientBuilder.create()
+                .setDefaultRequestConfig(config)
+                .build();
     }
 
     public String retrieveDocument(String url) throws IOException
@@ -66,6 +74,7 @@ public class HttpRetriever
         post.setHeader("Content-Type", "application/x-www-form-urlencoded");
 
         post.setEntity(new UrlEncodedFormEntity(urlParameters));
+
         CloseableHttpResponse response = httpClient.execute(post);
         try
         {
