@@ -43,7 +43,7 @@ public class JobConfiguration
     }
 
     @Bean
-    JobParametersIncrementer incrementer()
+    public JobParametersIncrementer incrementer()
     {
         return new RunIdIncrementer();
     }

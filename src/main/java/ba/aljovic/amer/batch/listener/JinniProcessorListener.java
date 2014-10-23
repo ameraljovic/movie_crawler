@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class JinniProcessorListener implements ItemProcessListener<Movie, Movie>
 {
     @Autowired
-    MovieFacade movieFacade;
+    private MovieFacade movieFacade;
 
     @Override
     public void beforeProcess(Movie item) {}

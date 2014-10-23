@@ -10,7 +10,7 @@ import java.util.List;
 public class FailedMoviesWriter implements ItemWriter<Movie>
 {
     @Autowired
-    MovieFacade movieFacade;
+    private MovieFacade movieFacade;
 
     @Override
     public void write(List<? extends Movie> movies) throws Exception

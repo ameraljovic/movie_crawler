@@ -22,13 +22,13 @@ public class BatchController
     private JinniJobLauncher jinniJobLauncher;
 
     @Autowired
-    FailedMoviesJobLauncher failedMoviesJobLauncher;
+    private FailedMoviesJobLauncher failedMoviesJobLauncher;
 
     @Autowired
     private JobOperator jobOperator;
 
     @Autowired
-    MovieFacade movieFacade;
+    private MovieFacade movieFacade;
 
     @RequestMapping(value = "/crawl/from/{fromId}/range/{range}", method = RequestMethod.GET)
     public String launchJinniJob(@PathVariable Long fromId,

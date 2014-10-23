@@ -26,16 +26,16 @@ import java.net.SocketTimeoutException;
 public class FailedMoviesJobConfiguration extends JobConfiguration
 {
     @Autowired
-    ItemReadListener<Movie> failedMoviesReaderListener;
+    private ItemReadListener<Movie> failedMoviesReaderListener;
 
     @Autowired
-    MovieFacade movieFacade;
+    private MovieFacade movieFacade;
 
     @Autowired
-    MovieRetriever movieRetriever;
+    private MovieRetriever movieRetriever;
 
     @Bean
-    JobParametersIncrementer jobIncrementer()
+    public JobParametersIncrementer jobIncrementer()
     {
         return new RunIdIncrementer();
     }

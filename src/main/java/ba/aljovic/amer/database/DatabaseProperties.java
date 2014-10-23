@@ -1,13 +1,28 @@
 package ba.aljovic.amer.database;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.stereotype.Component;
 
-@ConfigurationProperties("db")
+@Component
 public class DatabaseProperties
 {
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+    @Value("${db.driverClassName}")
     private String driverClassName = "com.mysql.jdbc.Driver";
+
+    @Value("${db.url}")
     private String url = "jdbc:mysql://localhost:3306/genome";
+
+    @Value("${db.username}")
     private String username;
+
+    @Value("${db.password}")
     private String password;
 
     //region GETTERS & SETTERS

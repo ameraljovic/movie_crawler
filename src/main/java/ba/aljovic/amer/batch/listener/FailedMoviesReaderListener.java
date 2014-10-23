@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class FailedMoviesReaderListener implements ItemReadListener<Movie>
 {
     @Autowired
-    MovieFacade movieFacade;
+    private MovieFacade movieFacade;
 
     @Override
     public void beforeRead() {}

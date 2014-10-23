@@ -12,10 +12,10 @@ import java.util.List;
 public class MovieFacade
 {
     @Autowired
-    MoviesRepository moviesRepository;
+    private MoviesRepository moviesRepository;
 
     @Autowired
-    FailedMoviesRepository failedMoviesRepository;
+    private FailedMoviesRepository failedMoviesRepository;
 
     public void insertMovie(Movie movie)
     {

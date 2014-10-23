@@ -13,7 +13,7 @@ public class JinniProcessor implements ItemProcessor<Movie, Movie>
     private static final String JINNI_BASE_URL = "http://www.jinni.com";
 
     @Autowired
-    JinniParser parser;
+    private JinniParser parser;
 
     @Autowired
     private HttpRetriever httpRetriever;

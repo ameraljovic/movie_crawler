@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 @Component
 public class JinniJobListener implements JobExecutionListener
 {
-    Logger logger = Logger.getLogger(getClass().toString());
+    private Logger logger = Logger.getLogger(getClass().toString());
 
     @Override
     public void beforeJob(JobExecution jobExecution) {}
