@@ -2,23 +2,13 @@ package ba.aljovic.amer;
 
 import ba.aljovic.amer.component.service.MovieRetriever;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-@RunWith (SpringJUnit4ClassRunner.class)
-@ComponentScan (basePackages = "ba.aljovic.amer.component")
-@ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes = Application.class)
 public class UrlCreationTest
 {
-    @Autowired
-    private MovieRetriever movieRetriever;
+    private MovieRetriever movieRetriever = new MovieRetriever();
 
     @Test
     public void normalTitle()
