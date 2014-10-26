@@ -2,7 +2,6 @@ package ba.aljovic.amer.component.service;
 
 import ba.aljovic.amer.database.entity.Genome;
 import ba.aljovic.amer.database.entity.Movie;
-import ba.aljovic.amer.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.exception.SuspiciousMovieException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,13 +9,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 @Component
 public class JinniParser
 {
     public Movie parseMovie(Movie movie, String html)
-            throws JinniMovieNotFoundException, IOException
     {
         Document doc = Jsoup.parse(html);
         Elements elGenomes = doc.select(".right_genomeGroup");
