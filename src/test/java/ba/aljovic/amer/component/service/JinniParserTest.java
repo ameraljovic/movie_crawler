@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class JinniParserTest
@@ -54,7 +55,23 @@ public class JinniParserTest
     }
 
     @Test
-    public void testParseMovieFail() throws IOException
+    public void testRetrieveDocument() throws IOException
+    {
+        String urlTitle = "the-empire-strikes-back";
+        String html = httpRetriever.retrieveDocument("http://www.jinni.com/movies/" + urlTitle);
+        assertNotNull(html);
+    }
+
+
+    @Test(expected = IllegalStateException.class)
+    public void testRetrieveDocumentNoHttp() throws IOException
+    {
+        String urlTitle = "star-wars-iv";
+        httpRetriever.retrieveDocument("www.jinni.com/movies/" + urlTitle);
+    }
+
+    @Test
+    public void testRetrieveDocumentFail() throws IOException
     {
         String urlTitle = "star-wars-iv";
         String html = httpRetriever.retrieveDocument("http://www.jinni.com/movies/" + urlTitle);
