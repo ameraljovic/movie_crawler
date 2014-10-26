@@ -5,7 +5,6 @@ import ba.aljovic.amer.exception.SuspiciousMovieException;
 import ba.aljovic.amer.exception.TmdbMovieNotFoundException;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -21,9 +20,9 @@ public class MovieRetriever
     private static final Map<Character, String> latinExtendedMapping = new HashMap<>();
     private static final char SPACE = ' ';
 
-    @Autowired private HttpRetriever httpRetriever;
-    @Autowired private JSONParser jsonParser;
-    @Autowired private JinniParser jinniParser;
+    private HttpRetriever httpRetriever;
+    private JSONParser jsonParser;
+    private JinniParser jinniParser;
 
     public MovieRetriever()
     {
@@ -214,4 +213,21 @@ public class MovieRetriever
         charactersMapping.put('/', " ");
         charactersMapping.put('&', "and");
     }
+
+    public void setHttpRetriever(HttpRetriever httpRetriever)
+    {
+        this.httpRetriever = httpRetriever;
+    }
+
+    public void setJsonParser(JSONParser jsonParser)
+    {
+        this.jsonParser = jsonParser;
+    }
+
+    public void setJinniParser(JinniParser jinniParser)
+    {
+        this.jinniParser = jinniParser;
+    }
+
+
 }

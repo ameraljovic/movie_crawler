@@ -1,13 +1,8 @@
 package ba.aljovic.amer.component.service;
 
-import ba.aljovic.amer.Application;
 import ba.aljovic.amer.exception.TmdbMovieNotFoundException;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 
@@ -15,13 +10,23 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@ActiveProfiles("test")
 public class MovieRetrieverTest
 {
-    @Autowired
     private MovieRetriever movieRetriever;
+
+    @Before
+    public void prepare()
+    {
+        movieRetriever = new MovieRetriever();
+
+        HttpRetriever httpRetriever = new HttpRetriever();
+        httpRetriever.init();
+        movieRetriever.setHttpRetriever(httpRetriever);
+
+        movieRetriever.setJinniParser(new JinniParser());
+
+        movieRetriever.setJsonParser(new JSONParser());
+    }
 
     @Test
     public void testRetrieveTitle() throws IOException, TmdbMovieNotFoundException
