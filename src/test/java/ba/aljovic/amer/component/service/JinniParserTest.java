@@ -15,7 +15,6 @@ import static org.junit.Assert.assertNull;
 public class JinniParserTest
 {
     private HttpRetriever httpRetriever = new HttpRetriever();
-
     private JinniParser jinniParser = new JinniParser();
 
     @Before
