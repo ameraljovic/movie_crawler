@@ -31,12 +31,24 @@ public class MovieRetrieverTest
         assertEquals("Title is not '" + expectedTitle + "'", expectedTitle, title);
     }
 
+    @Test(expected = TmdbMovieNotFoundException.class)
+    public void testRetrieveTitleFail() throws IOException, TmdbMovieNotFoundException
+    {
+        movieRetriever.retrieveTitle(1L);
+    }
+
     @Test
     public void testRetrieveImdbId() throws IOException, TmdbMovieNotFoundException
     {
         String expectedImdbId = "tt0109424";
         String imdbId = movieRetriever.retrieveImdbId(11104L);
         assertEquals("Imdb id is not " + expectedImdbId, expectedImdbId, imdbId);
+    }
+
+    @Test(expected = TmdbMovieNotFoundException.class)
+    public void testRetrieveImdbIdFail() throws IOException, TmdbMovieNotFoundException
+    {
+        movieRetriever.retrieveImdbId(10L);
     }
 
     @Test
