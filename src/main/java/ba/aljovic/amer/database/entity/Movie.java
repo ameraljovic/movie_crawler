@@ -80,6 +80,16 @@ public class Movie
         return tmdbId;
     }
 
+    public Collection<Genome> getGenomes()
+    {
+        return genomes;
+    }
+
+    public void setGenomes(Collection<Genome> genomes)
+    {
+        this.genomes = genomes;
+    }
+
     @Override
     public boolean equals(Object o)
     {
