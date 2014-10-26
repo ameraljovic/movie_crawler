@@ -1,29 +1,28 @@
 package ba.aljovic.amer.component.service;
 
-import ba.aljovic.amer.Application;
 import ba.aljovic.amer.database.entity.Genome;
 import ba.aljovic.amer.database.entity.Movie;
-import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@ActiveProfiles("test")
-public class JinniParserTest extends TestCase
-{
-    @Autowired
-    private HttpRetriever httpRetriever;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-    @Autowired
-    private JinniParser jinniParser;
+public class JinniParserTest
+{
+    private HttpRetriever httpRetriever = new HttpRetriever();
+
+    private JinniParser jinniParser = new JinniParser();
+
+    @Before
+    public void prepare()
+    {
+        httpRetriever.init();
+    }
 
     @Test
     public void testParseMovie() throws Exception
@@ -53,5 +52,13 @@ public class JinniParserTest extends TestCase
                     genome.getGenomes().size());
             i++;
         }
+    }
+
+    @Test
+    public void testParseMovieFail() throws IOException
+    {
+        String urlTitle = "star-wars-iv";
+        String html = httpRetriever.retrieveDocument("http://www.jinni.com/movies/" + urlTitle);
+        assertNull(html);
     }
 }
