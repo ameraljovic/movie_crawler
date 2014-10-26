@@ -17,7 +17,7 @@ public class WriterLogger
 
     @Around ("execution(* ba.aljovic.amer.database.MovieFacade.insertMovie(ba.aljovic.amer.database.entity.Movie)) " +
             "&& args(movie)")
-    public void insertMovie(ProceedingJoinPoint joinPoint, Movie movie)
+    public void insertMovie(ProceedingJoinPoint joinPoint, Movie movie) throws Throwable
     {
         try
         {
@@ -29,6 +29,7 @@ public class WriterLogger
         {
             logger.severe("WRITER:Movie '" + movie.getTitle() + " could not be inserted. ERROR MESSAGE:"
                     + throwable.getMessage());
+            throw throwable;
         }
 
     }

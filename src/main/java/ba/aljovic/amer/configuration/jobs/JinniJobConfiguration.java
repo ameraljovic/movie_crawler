@@ -13,6 +13,7 @@ import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.net.SocketTimeoutException;
 
@@ -30,6 +31,7 @@ public class JinniJobConfiguration extends JobConfiguration
                 .faultTolerant()
                 .skip(TmdbMovieNotFoundException.class)
                 .skip(JinniMovieNotFoundException.class)
+                .skip(DataIntegrityViolationException.class)
                 .skipLimit(100000)
                 .retry(SocketTimeoutException.class)
                 .retryLimit(10000)
