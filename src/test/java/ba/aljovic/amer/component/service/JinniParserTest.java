@@ -6,12 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class JinniParserTest
 {
@@ -29,7 +25,6 @@ public class JinniParserTest
     {
         // Expected values
         int expectedNumberOfGenomes = 12;
-        List<Genome> genomes = new ArrayList<>();
         int[] expectedNumberOfGenomeValues = { 5, 11, 2, 2, 2, 2, 3, 1, 1, 2, 1, 1 };
 
         // Get html input
