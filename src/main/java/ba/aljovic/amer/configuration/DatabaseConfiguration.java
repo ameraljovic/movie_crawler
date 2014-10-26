@@ -1,10 +1,12 @@
 package ba.aljovic.amer.configuration;
 
 import ba.aljovic.amer.database.DatabaseProperties;
+import org.flywaydb.core.Flyway;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.Database;
@@ -14,6 +16,7 @@ import javax.sql.DataSource;
 
 @EnableBatchProcessing
 @Configuration
+@Profile("production")
 public class DatabaseConfiguration
 {
     @Autowired
@@ -30,6 +33,15 @@ public class DatabaseConfiguration
         dataSource.setPassword(properties.getPassword());
 
         return dataSource;
+    }
+
+    @Bean
+    public Flyway flyway()
+    {
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(dataSource());
+        flyway.setLocations("db.migration");
+        return flyway;
     }
 
     @Bean
