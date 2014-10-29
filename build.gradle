@@ -16,13 +16,15 @@ dependencies {
     compile 'org.jsoup:jsoup:1.7.2'
     compile 'org.apache.httpcomponents:httpclient:4.3.3'
     compile 'org.json:json:20140107'
-
-    compile 'mysql:mysql-connector-java:5.1.30'
+    compile 'com.google.guava:guava:16.0.1'
 
     compile 'org.springframework.boot:spring-boot-starter-batch:1.1.6.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.1.6.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-web:1.1.6.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-test:1.1.6.RELEASE'
+    compile 'org.springframework.batch:spring-batch-test:3.0.1.RELEASE'
+
+    compile 'mysql:mysql-connector-java:5.1.30'
     compile 'org.flywaydb:flyway-core:3.0'
     compile 'com.h2database:h2:1.4.182'
 }

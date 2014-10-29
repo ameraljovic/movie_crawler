@@ -12,10 +12,8 @@ public class JinniProcessor implements ItemProcessor<Movie, Movie>
 {
     private static final String JINNI_BASE_URL = "http://www.jinni.com";
 
-    @Autowired
     private JinniParser parser;
 
-    @Autowired
     private HttpRetriever httpRetriever;
 
     @Override
@@ -24,5 +22,17 @@ public class JinniProcessor implements ItemProcessor<Movie, Movie>
         String html = httpRetriever.retrieveDocument(JINNI_BASE_URL + "/movies/" + movie.getUrl());
         if (html == null) throw new JinniMovieNotFoundException(movie.getTitle(), movie.getUrl());
         return parser.parseMovie(movie, html);
+    }
+
+    @Autowired
+    public void setParser(JinniParser parser)
+    {
+        this.parser = parser;
+    }
+
+    @Autowired
+    public void setHttpRetriever(HttpRetriever httpRetriever)
+    {
+        this.httpRetriever = httpRetriever;
     }
 }

@@ -29,6 +29,7 @@ public class JinniJobConfiguration extends JobConfiguration
                 .processor(jinniProcessor())
                 .writer(jinniWriter())
                 .faultTolerant()
+                .processorNonTransactional()
                 .skip(TmdbMovieNotFoundException.class)
                 .skip(JinniMovieNotFoundException.class)
                 .skip(DataIntegrityViolationException.class)

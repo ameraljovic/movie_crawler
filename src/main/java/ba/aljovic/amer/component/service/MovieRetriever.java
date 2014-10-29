@@ -5,6 +5,7 @@ import ba.aljovic.amer.exception.SuspiciousMovieException;
 import ba.aljovic.amer.exception.TmdbMovieNotFoundException;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -214,16 +215,19 @@ public class MovieRetriever
         charactersMapping.put('&', "and");
     }
 
+    @Autowired
     public void setHttpRetriever(HttpRetriever httpRetriever)
     {
         this.httpRetriever = httpRetriever;
     }
 
+    @Autowired
     public void setJsonParser(JSONParser jsonParser)
     {
         this.jsonParser = jsonParser;
     }
 
+    @Autowired
     public void setJinniParser(JinniParser jinniParser)
     {
         this.jinniParser = jinniParser;

@@ -25,7 +25,9 @@ public class Movie
     @Column(name = "url")
     private String url;
 
-    @OneToMany(mappedBy = "movie", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "movie",
+               fetch = FetchType.EAGER,
+               cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     private Collection<Genome> genomes;
 
     public Movie()
@@ -47,6 +49,11 @@ public class Movie
     {
         genome.setMovie(this);
         genomes.add(genome);
+    }
+
+    public Integer getId()
+    {
+        return id;
     }
 
     public void setId(Integer id)
