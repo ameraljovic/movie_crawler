@@ -1,13 +1,13 @@
 package ba.aljovic.amer.configuration.jobs;
 
-import ba.aljovic.amer.batch.chunk.FailedMoviesReader;
-import ba.aljovic.amer.batch.chunk.FailedMoviesWriter;
-import ba.aljovic.amer.batch.chunk.JinniProcessor;
-import ba.aljovic.amer.component.service.MovieRetriever;
-import ba.aljovic.amer.database.MovieFacade;
-import ba.aljovic.amer.database.entity.Movie;
-import ba.aljovic.amer.exception.JinniMovieNotFoundException;
-import ba.aljovic.amer.exception.SuspiciousMovieException;
+import ba.aljovic.amer.application.batch.chunk.FailedMoviesReader;
+import ba.aljovic.amer.application.batch.chunk.FailedMoviesWriter;
+import ba.aljovic.amer.application.batch.chunk.JinniProcessor;
+import ba.aljovic.amer.application.component.service.MovieRetriever;
+import ba.aljovic.amer.application.database.MovieFacade;
+import ba.aljovic.amer.application.database.entity.Movie;
+import ba.aljovic.amer.application.exception.JinniMovieNotFoundException;
+import ba.aljovic.amer.application.exception.SuspiciousMovieException;
 import org.springframework.batch.core.ItemReadListener;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersIncrementer;

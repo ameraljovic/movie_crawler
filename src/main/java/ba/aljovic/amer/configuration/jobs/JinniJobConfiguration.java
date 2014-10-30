@@ -1,11 +1,11 @@
 package ba.aljovic.amer.configuration.jobs;
 
-import ba.aljovic.amer.batch.chunk.JinniProcessor;
-import ba.aljovic.amer.batch.chunk.JinniWriter;
-import ba.aljovic.amer.batch.chunk.TmdbReader;
-import ba.aljovic.amer.database.entity.Movie;
-import ba.aljovic.amer.exception.JinniMovieNotFoundException;
-import ba.aljovic.amer.exception.TmdbMovieNotFoundException;
+import ba.aljovic.amer.application.batch.chunk.JinniProcessor;
+import ba.aljovic.amer.application.batch.chunk.JinniWriter;
+import ba.aljovic.amer.application.batch.chunk.TmdbReader;
+import ba.aljovic.amer.application.database.entity.Movie;
+import ba.aljovic.amer.application.exception.JinniMovieNotFoundException;
+import ba.aljovic.amer.application.exception.TmdbMovieNotFoundException;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;
