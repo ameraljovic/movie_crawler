@@ -2,7 +2,6 @@ package ba.aljovic.amer.configuration;
 
 import ba.aljovic.amer.application.database.DatabaseProperties;
 import org.flywaydb.core.Flyway;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +13,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.sql.DataSource;
 
-@EnableBatchProcessing
 @Configuration
 @Profile("production")
 public class DatabaseConfiguration

@@ -10,10 +10,14 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.partition.support.Partitioner;
+import org.springframework.batch.core.step.skip.ExceptionClassifierSkipPolicy;
+import org.springframework.batch.core.step.skip.SkipPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.retry.RetryPolicy;
+import org.springframework.retry.policy.ExceptionClassifierRetryPolicy;
 
 public class JobConfiguration
 {
@@ -32,7 +36,7 @@ public class JobConfiguration
     protected JobExecutionListener jinniJobListener;
 
     @Autowired
-    protected TaskExecutor stepAsyncTaskExecutor;
+    protected TaskExecutor asyncTaskExecutor;
 
     @Bean
     @StepScope
@@ -46,5 +50,17 @@ public class JobConfiguration
     public JobParametersIncrementer incrementer()
     {
         return new RunIdIncrementer();
+    }
+
+    @Bean
+    public SkipPolicy skipPolicy()
+    {
+        return new ExceptionClassifierSkipPolicy();
+    }
+
+    @Bean
+    public RetryPolicy retryPolicy()
+    {
+        return new ExceptionClassifierRetryPolicy();
     }
 }

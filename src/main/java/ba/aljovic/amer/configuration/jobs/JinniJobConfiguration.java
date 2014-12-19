@@ -6,6 +6,8 @@ import ba.aljovic.amer.application.batch.chunk.TmdbReader;
 import ba.aljovic.amer.application.database.entity.Movie;
 import ba.aljovic.amer.application.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.application.exception.TmdbMovieNotFoundException;
+import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.conn.ConnectionPoolTimeoutException;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -13,8 +15,8 @@ import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.dao.DataIntegrityViolationException;
 
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 @Configuration
@@ -32,9 +34,12 @@ public class JinniJobConfiguration extends JobConfiguration
                 .processorNonTransactional()
                 .skip(TmdbMovieNotFoundException.class)
                 .skip(JinniMovieNotFoundException.class)
-                .skip(DataIntegrityViolationException.class)
+                .skip(IOException.class)
                 .skipLimit(100000)
                 .retry(SocketTimeoutException.class)
+                .retry(ConnectionPoolTimeoutException.class)
+                .retry(ConnectTimeoutException.class)
+                .retry(IOException.class)
                 .retryLimit(10000)
                 .listener(jinniProcessorListener)
                 .build();
@@ -46,7 +51,7 @@ public class JinniJobConfiguration extends JobConfiguration
         return stepBuilder.get("jinniMasterStep")
                 .partitioner(jinniSlaveStep())
                 .partitioner("jinniSlaveStep", rangePartitioner(null, null))
-                .taskExecutor(stepAsyncTaskExecutor)
+                .taskExecutor(asyncTaskExecutor)
                 .gridSize(1)
                 .build();
     }

@@ -18,10 +18,10 @@ dependencies {
     compile 'org.json:json:20140107'
     compile 'com.google.guava:guava:16.0.1'
 
-    compile 'org.springframework.boot:spring-boot-starter-batch:1.1.6.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.1.6.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-web:1.1.6.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-test:1.1.6.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-batch:1.2.0.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.2.0.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-web:1.2.0.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-test:1.2.0.RELEASE'
     compile 'org.springframework.batch:spring-batch-test:3.0.1.RELEASE'
 
     compile 'mysql:mysql-connector-java:5.1.30'
