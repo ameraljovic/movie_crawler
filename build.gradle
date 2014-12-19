@@ -8,6 +8,10 @@ jar {
     }
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}
+
 repositories {
     mavenCentral()
 }
