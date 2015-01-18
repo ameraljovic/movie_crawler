@@ -5,7 +5,7 @@ import ba.aljovic.amer.application.batch.chunk.failedmoviesjob.FailedMoviesWrite
 import ba.aljovic.amer.application.batch.chunk.jinnijob.JinniProcessor;
 import ba.aljovic.amer.application.component.service.MovieRetriever;
 import ba.aljovic.amer.application.database.MovieFacade;
-import ba.aljovic.amer.application.database.entity.Movie;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import ba.aljovic.amer.application.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.application.exception.SuspiciousMovieException;
 import org.springframework.batch.core.ItemReadListener;

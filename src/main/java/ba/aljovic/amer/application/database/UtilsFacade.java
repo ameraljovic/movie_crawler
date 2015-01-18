@@ -1,7 +1,7 @@
 package ba.aljovic.amer.application.database;
 
-import ba.aljovic.amer.application.database.entity.ImdbMovie;
-import ba.aljovic.amer.application.database.entity.Movie;
+import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbMovie;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

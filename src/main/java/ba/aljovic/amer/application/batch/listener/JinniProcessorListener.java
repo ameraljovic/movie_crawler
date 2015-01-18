@@ -1,8 +1,8 @@
 package ba.aljovic.amer.application.batch.listener;
 
 import ba.aljovic.amer.application.database.MovieFacade;
-import ba.aljovic.amer.application.database.entity.Movie;
-import ba.aljovic.amer.application.database.entity.StatusEnum;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
+import ba.aljovic.amer.application.database.entities.failedmoviesjob.StatusEnum;
 import ba.aljovic.amer.application.exception.JinniMovieNotFoundException;
 import org.springframework.batch.core.ItemProcessListener;
 import org.springframework.beans.factory.annotation.Autowired;

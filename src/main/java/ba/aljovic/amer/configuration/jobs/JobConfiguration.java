@@ -1,7 +1,7 @@
 package ba.aljovic.amer.configuration.jobs;
 
 import ba.aljovic.amer.application.batch.chunk.RangePartitioner;
-import ba.aljovic.amer.application.database.entity.Movie;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import org.springframework.batch.core.ItemProcessListener;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.JobParametersIncrementer;

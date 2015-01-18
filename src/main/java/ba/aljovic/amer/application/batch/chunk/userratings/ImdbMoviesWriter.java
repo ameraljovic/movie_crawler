@@ -1,7 +1,7 @@
 package ba.aljovic.amer.application.batch.chunk.userratings;
 
 import ba.aljovic.amer.application.database.ImdbMoviesRepository;
-import ba.aljovic.amer.application.database.entity.ImdbMovie;
+import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbMovie;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 

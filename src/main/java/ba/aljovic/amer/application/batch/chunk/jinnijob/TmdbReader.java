@@ -1,7 +1,7 @@
 package ba.aljovic.amer.application.batch.chunk.jinnijob;
 
 import ba.aljovic.amer.application.component.service.MovieRetriever;
-import ba.aljovic.amer.application.database.entity.Movie;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import ba.aljovic.amer.application.exception.TmdbMovieNotFoundException;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemStreamException;

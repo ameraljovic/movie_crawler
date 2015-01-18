@@ -1,7 +1,7 @@
 package ba.aljovic.amer.application.batch.chunk.failedmoviesjob;
 
 import ba.aljovic.amer.application.database.MovieFacade;
-import ba.aljovic.amer.application.database.entity.Movie;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 

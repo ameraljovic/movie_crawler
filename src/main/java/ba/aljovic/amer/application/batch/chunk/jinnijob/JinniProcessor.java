@@ -2,7 +2,7 @@ package ba.aljovic.amer.application.batch.chunk.jinnijob;
 
 import ba.aljovic.amer.application.component.service.HttpRetriever;
 import ba.aljovic.amer.application.component.service.JinniParser;
-import ba.aljovic.amer.application.database.entity.Movie;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import ba.aljovic.amer.application.exception.JinniMovieNotFoundException;
 import org.jsoup.HttpStatusException;
 import org.springframework.batch.item.ItemProcessor;

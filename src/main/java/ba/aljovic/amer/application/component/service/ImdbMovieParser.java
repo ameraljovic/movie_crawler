@@ -1,6 +1,6 @@
 package ba.aljovic.amer.application.component.service;
 
-import ba.aljovic.amer.application.database.entity.ImdbMovie;
+import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbMovie;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

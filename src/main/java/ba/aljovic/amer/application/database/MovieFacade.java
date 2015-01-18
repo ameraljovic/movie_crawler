@@ -1,8 +1,8 @@
 package ba.aljovic.amer.application.database;
 
-import ba.aljovic.amer.application.database.entity.FailedMovie;
-import ba.aljovic.amer.application.database.entity.Movie;
-import ba.aljovic.amer.application.database.entity.StatusEnum;
+import ba.aljovic.amer.application.database.entities.failedmoviesjob.FailedMovie;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
+import ba.aljovic.amer.application.database.entities.failedmoviesjob.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

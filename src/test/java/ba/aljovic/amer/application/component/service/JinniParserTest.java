@@ -1,7 +1,7 @@
 package ba.aljovic.amer.application.component.service;
 
-import ba.aljovic.amer.application.database.entity.Genome;
-import ba.aljovic.amer.application.database.entity.Movie;
+import ba.aljovic.amer.application.database.entities.jinnijob.Genome;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package ba.aljovic.amer.application.database.entity;
+package ba.aljovic.amer.application.database.entities.failedmoviesjob;
 
 public enum StatusEnum
 {

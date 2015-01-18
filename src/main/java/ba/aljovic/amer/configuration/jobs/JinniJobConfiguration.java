@@ -3,7 +3,7 @@ package ba.aljovic.amer.configuration.jobs;
 import ba.aljovic.amer.application.batch.chunk.jinnijob.JinniProcessor;
 import ba.aljovic.amer.application.batch.chunk.jinnijob.JinniWriter;
 import ba.aljovic.amer.application.batch.chunk.jinnijob.TmdbReader;
-import ba.aljovic.amer.application.database.entity.Movie;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import ba.aljovic.amer.application.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.application.exception.TmdbMovieNotFoundException;
 import org.apache.http.conn.ConnectTimeoutException;

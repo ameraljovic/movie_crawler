@@ -1,7 +1,7 @@
 package ba.aljovic.amer.application.logging;
 
-import ba.aljovic.amer.application.database.entity.Movie;
-import ba.aljovic.amer.application.database.entity.StatusEnum;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
+import ba.aljovic.amer.application.database.entities.failedmoviesjob.StatusEnum;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,7 +15,7 @@ public class WriterLogger
 {
     private Logger logger = Logger.getLogger(getClass().toString());
 
-    @Around ("execution(* ba.aljovic.amer.application.database.MovieFacade.insertMovie(ba.aljovic.amer.application.database.entity.Movie)) " +
+    @Around ("execution(* ba.aljovic.amer.application.database.MovieFacade.insertMovie(ba.aljovic.amer.application.database.entities.jinnijob.Movie)) " +
             "&& args(movie)")
     public void insertMovie(ProceedingJoinPoint joinPoint, Movie movie) throws Throwable
     {
@@ -52,7 +52,7 @@ public class WriterLogger
     }
 
     @Around("execution(* ba.aljovic.amer.application.database.MovieFacade.updateFailedMovieStatus(" +
-            "Integer, ba.aljovic.amer.application.database.entity.StatusEnum)) && args(id, status)")
+            "Integer, ba.aljovic.amer.application.database.entities.failedmoviesjob.StatusEnum)) && args(id, status)")
     public void updateFailedMovieStatus(ProceedingJoinPoint joinPoint, Integer id, StatusEnum status)
     {
         try
@@ -68,7 +68,7 @@ public class WriterLogger
         }
     }
 
-    @Around("execution(* ba.aljovic.amer.application.database.MovieFacade.recoverFailedMovie(ba.aljovic.amer.application.database.entity.Movie)) " +
+    @Around("execution(* ba.aljovic.amer.application.database.MovieFacade.recoverFailedMovie(ba.aljovic.amer.application.database.entities.jinnijob.Movie)) " +
             "&& args(movie)")
     public void recoverFailedMovie(ProceedingJoinPoint joinPoint, Movie movie)
     {
