@@ -2,6 +2,7 @@ package ba.aljovic.amer.application.component.webservice;
 
 import ba.aljovic.amer.application.batch.launcher.FailedMoviesJobLauncher;
 import ba.aljovic.amer.application.batch.launcher.JinniJobLauncher;
+import ba.aljovic.amer.application.batch.launcher.UserRatingsJobLauncher;
 import ba.aljovic.amer.application.database.UtilsFacade;
 import org.springframework.batch.core.launch.JobExecutionNotRunningException;
 import org.springframework.batch.core.launch.JobOperator;
@@ -25,6 +26,9 @@ public class BatchController
     private FailedMoviesJobLauncher failedMoviesJobLauncher;
 
     @Autowired
+    private UserRatingsJobLauncher userRatingsJobLauncher;
+
+    @Autowired
     private JobOperator jobOperator;
 
     @Autowired
@@ -44,6 +48,13 @@ public class BatchController
     {
         failedMoviesJobLauncher.launch(fromId, range);
         return "Failed movies job started";
+    }
+
+    @RequestMapping(value = "/userRatings", method = RequestMethod.GET)
+    public String launchUserRatingsJob() throws Exception
+    {
+        userRatingsJobLauncher.launch();
+        return "User ratings job started";
     }
 
     @RequestMapping(value = "/stopJob/{jobName}", method = RequestMethod.GET)

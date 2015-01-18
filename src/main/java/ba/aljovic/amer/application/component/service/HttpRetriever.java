@@ -23,16 +23,17 @@ import java.util.List;
 @Component
 public class HttpRetriever
 {
-    public static final int TIMEOUT_IN_SECONDS = 5;
     private CloseableHttpClient httpClient;
+    private static final int TIMEOUT_IN_MILLIS = 20_000;
+
 
     @PostConstruct
     public void init()
     {
         RequestConfig config = RequestConfig.custom()
-                .setConnectTimeout(TIMEOUT_IN_SECONDS * 1000)
-                .setSocketTimeout(5 * 1000)
-                .setConnectionRequestTimeout(5 * 1000)
+                .setConnectTimeout(TIMEOUT_IN_MILLIS)
+                .setSocketTimeout(TIMEOUT_IN_MILLIS)
+                .setConnectionRequestTimeout(TIMEOUT_IN_MILLIS)
                 .build();
         httpClient = HttpClientBuilder.create()
                 .setDefaultRequestConfig(config)

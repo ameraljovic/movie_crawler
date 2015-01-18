@@ -44,7 +44,7 @@ public class JinniJobTest
                 BatchStatus.COMPLETED);
         assertEquals("Number of crawled movies is 4.", 4, utilsFacade.getNumberOfMovies());
 
-        List<Movie> movies = utilsFacade.findAll();
+        List<Movie> movies = utilsFacade.findAllMovies();
         int i = 0;
         for (Movie movie : movies)
         {

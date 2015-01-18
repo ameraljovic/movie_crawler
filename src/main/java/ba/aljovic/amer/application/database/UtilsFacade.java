@@ -1,5 +1,6 @@
 package ba.aljovic.amer.application.database;
 
+import ba.aljovic.amer.application.database.entity.ImdbMovie;
 import ba.aljovic.amer.application.database.entity.Movie;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class UtilsFacade
     @Autowired
     private FailedMoviesRepository failedMoviesRepository;
 
+    @Autowired
+    private ImdbMoviesRepository imdbMoviesRepository;
+
     public void deleteALl()
     {
         moviesRepository.deleteAll();
@@ -27,8 +31,13 @@ public class UtilsFacade
         return moviesRepository.count();
     }
 
-    public List<Movie> findAll()
+    public List<Movie> findAllMovies()
     {
         return Lists.newArrayList(moviesRepository.findAll());
+    }
+
+    public List<ImdbMovie> findAllImdbMovies()
+    {
+        return (List<ImdbMovie>)imdbMoviesRepository.findAll();
     }
 }

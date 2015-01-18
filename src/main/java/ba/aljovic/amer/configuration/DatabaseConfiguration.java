@@ -33,12 +33,12 @@ public class DatabaseConfiguration
         return dataSource;
     }
 
-    @Bean
+    @Bean(initMethod = "migrate")
     public Flyway flyway()
     {
         Flyway flyway = new Flyway();
         flyway.setDataSource(dataSource());
-        flyway.setLocations("db.migration");
+        flyway.setLocations("db.migration.production");
         return flyway;
     }
 

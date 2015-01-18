@@ -35,12 +35,12 @@ public class JinniJobConfiguration extends JobConfiguration
                 .skip(TmdbMovieNotFoundException.class)
                 .skip(JinniMovieNotFoundException.class)
                 .skip(IOException.class)
-                .skipLimit(100000)
+                .skipLimit(10000000)
                 .retry(SocketTimeoutException.class)
                 .retry(ConnectionPoolTimeoutException.class)
                 .retry(ConnectTimeoutException.class)
                 .retry(IOException.class)
-                .retryLimit(10000)
+                .retryLimit(1000000)
                 .listener(jinniProcessorListener)
                 .build();
     }
