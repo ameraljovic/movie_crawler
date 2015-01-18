@@ -13,6 +13,9 @@ import java.util.List;
 @Component
 public class ImdbMovieParser
 {
+
+    public static final String IMDB_BASE_URL = "http://www.imdb.com";
+
     public List<ImdbMovie> parseTop250(String html)
     {
         Document doc = Jsoup.parse(html);
@@ -21,7 +24,7 @@ public class ImdbMovieParser
         for (Element element : movieElements)
         {
             ImdbMovie movie = new ImdbMovie();
-            movie.setUrl(element.child(1).attr("href"));
+            movie.setUrl(IMDB_BASE_URL + element.child(1).attr("href"));
             movie.setTitle(element.child(1).childNode(0).toString());
             movies.add(movie);
         }
