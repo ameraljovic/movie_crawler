@@ -1,4 +1,4 @@
-package ba.aljovic.amer.application.batch.chunk;
+package ba.aljovic.amer.application.batch.chunk.failedmoviesjob;
 
 import ba.aljovic.amer.application.component.service.MovieRetriever;
 import ba.aljovic.amer.application.database.MovieFacade;

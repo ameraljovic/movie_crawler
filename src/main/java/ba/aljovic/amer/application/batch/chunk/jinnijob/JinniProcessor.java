@@ -1,4 +1,4 @@
-package ba.aljovic.amer.application.batch.chunk;
+package ba.aljovic.amer.application.batch.chunk.jinnijob;
 
 import ba.aljovic.amer.application.component.service.HttpRetriever;
 import ba.aljovic.amer.application.component.service.JinniParser;

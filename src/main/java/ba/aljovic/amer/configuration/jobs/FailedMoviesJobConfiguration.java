@@ -1,8 +1,8 @@
 package ba.aljovic.amer.configuration.jobs;
 
-import ba.aljovic.amer.application.batch.chunk.FailedMoviesReader;
-import ba.aljovic.amer.application.batch.chunk.FailedMoviesWriter;
-import ba.aljovic.amer.application.batch.chunk.JinniProcessor;
+import ba.aljovic.amer.application.batch.chunk.failedmoviesjob.FailedMoviesReader;
+import ba.aljovic.amer.application.batch.chunk.failedmoviesjob.FailedMoviesWriter;
+import ba.aljovic.amer.application.batch.chunk.jinnijob.JinniProcessor;
 import ba.aljovic.amer.application.component.service.MovieRetriever;
 import ba.aljovic.amer.application.database.MovieFacade;
 import ba.aljovic.amer.application.database.entity.Movie;

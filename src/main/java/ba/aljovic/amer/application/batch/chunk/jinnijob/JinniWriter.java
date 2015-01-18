@@ -1,4 +1,4 @@
-package ba.aljovic.amer.application.batch.chunk;
+package ba.aljovic.amer.application.batch.chunk.jinnijob;
 
 import ba.aljovic.amer.application.database.MovieFacade;
 import ba.aljovic.amer.application.database.entity.Movie;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class FailedMoviesWriter implements ItemWriter<Movie>
+public class JinniWriter implements ItemWriter<Movie>
 {
     @Autowired
     private MovieFacade movieFacade;
@@ -15,9 +15,9 @@ public class FailedMoviesWriter implements ItemWriter<Movie>
     @Override
     public void write(List<? extends Movie> movies) throws Exception
     {
-        for(Movie movie : movies)
+        for (Movie movie : movies)
         {
-            movieFacade.recoverFailedMovie(movie);
+            movieFacade.insertMovie(movie);
         }
     }
 }
