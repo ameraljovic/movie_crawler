@@ -1,29 +1,40 @@
 package ba.aljovic.amer.application.database.entities.userratingsjob;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "imdb_users")
 public class ImdbUser
 {
-    private int rating;
-    private String name;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "url")
     private String url;
 
-    public int getRating()
+    @OneToMany(mappedBy = "movie")
+    private List<MovieRating> ratings;
+
+    //region GETTERS & SETTERS
+    public Long getId()
     {
-        return rating;
+        return id;
     }
 
-    public void setRating(int rating)
+    public String getUsername()
     {
-        this.rating = rating;
+        return username;
     }
 
-    public String getName()
+    public void setUsername(String username)
     {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
+        this.username = username;
     }
 
     public String getUrl()
@@ -35,4 +46,15 @@ public class ImdbUser
     {
         this.url = url;
     }
+
+    public List<MovieRating> getRatings()
+    {
+        return ratings;
+    }
+
+    public void setRatings(List<MovieRating> ratings)
+    {
+        this.ratings = ratings;
+    }
+    //endregion
 }

@@ -1,0 +1,63 @@
+package ba.aljovic.amer.application.database.entities.userratingsjob;
+
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "movie_ratings")
+public class MovieRating
+{
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "rating")
+    private int rating;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_id", referencedColumnName = "id")
+    private Movie movie;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private ImdbUser user;
+
+    //region GETTERS & SETTERS
+    public Long getId()
+    {
+        return id;
+    }
+
+    public int getRating()
+    {
+        return rating;
+    }
+
+    public void setRating(int rating)
+    {
+        this.rating = rating;
+    }
+
+    public Movie getMovie()
+    {
+        return movie;
+    }
+
+    public void setMovie(Movie movie)
+    {
+        this.movie = movie;
+    }
+
+    public ImdbUser getUser()
+    {
+        return user;
+    }
+
+    public void setUser(ImdbUser user)
+    {
+        this.user = user;
+    }
+    //endregion
+}

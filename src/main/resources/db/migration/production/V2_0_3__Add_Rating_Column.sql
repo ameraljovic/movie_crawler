@@ -1,0 +1,1 @@
+ALTER TABLE `movie_rating` ADD COLUMN `rating` VARCHAR(256) NOT NULL;

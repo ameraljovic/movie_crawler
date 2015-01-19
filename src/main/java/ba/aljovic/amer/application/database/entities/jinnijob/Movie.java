@@ -1,5 +1,7 @@
 package ba.aljovic.amer.application.database.entities.jinnijob;
 
+import ba.aljovic.amer.application.database.entities.userratingsjob.MovieRating;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,6 +31,10 @@ public class Movie
                fetch = FetchType.EAGER,
                cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     private Collection<Genome> genomes;
+
+    @OneToMany(mappedBy = "movie",
+               fetch = FetchType.LAZY)
+    private Collection<MovieRating> ratings;
 
     public Movie()
     {
@@ -95,6 +101,16 @@ public class Movie
     public void setGenomes(Collection<Genome> genomes)
     {
         this.genomes = genomes;
+    }
+
+    public Collection<MovieRating> getRatings()
+    {
+        return ratings;
+    }
+
+    public void setRatings(Collection<MovieRating> ratings)
+    {
+        this.ratings = ratings;
     }
 
     @Override
