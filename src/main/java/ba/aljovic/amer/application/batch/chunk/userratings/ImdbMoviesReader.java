@@ -1,7 +1,7 @@
 package ba.aljovic.amer.application.batch.chunk.userratings;
 
 import ba.aljovic.amer.application.component.service.HttpRetriever;
-import ba.aljovic.amer.application.component.service.ImdbMovieParser;
+import ba.aljovic.amer.application.component.service.ImdbParser;
 import ba.aljovic.amer.application.database.ImdbMoviesRepository;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbMovie;
 import org.springframework.batch.item.ItemReader;
@@ -19,7 +19,7 @@ public class ImdbMoviesReader implements ItemReader<ImdbMovie>
     private HttpRetriever httpRetriever;
 
     @Autowired
-    private ImdbMovieParser imdbMovieParser;
+    private ImdbParser imdbMovieParser;
 
     @Autowired
     private ImdbMoviesRepository imdbMoviesRepository;

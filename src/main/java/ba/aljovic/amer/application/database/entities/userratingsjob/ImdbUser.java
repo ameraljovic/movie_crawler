@@ -56,5 +56,31 @@ public class ImdbUser
     {
         this.ratings = ratings;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ImdbUser imdbUser = (ImdbUser)o;
+
+        if (id != null ? !id.equals(imdbUser.id) : imdbUser.id != null) return false;
+        if (ratings != null ? !ratings.equals(imdbUser.ratings) : imdbUser.ratings != null) return false;
+        if (url != null ? !url.equals(imdbUser.url) : imdbUser.url != null) return false;
+        if (username != null ? !username.equals(imdbUser.username) : imdbUser.username != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (ratings != null ? ratings.hashCode() : 0);
+        return result;
+    }
     //endregion
 }
