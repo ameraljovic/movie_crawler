@@ -1,21 +1,28 @@
 package ba.aljovic.amer.configuration.jobs;
 
+import ba.aljovic.amer.application.batch.chunk.ImdbUsersPartitioner;
 import ba.aljovic.amer.application.batch.chunk.userratings.*;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbMovie;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbUser;
 import ba.aljovic.amer.application.database.entities.userratingsjob.MovieRating;
 import ba.aljovic.amer.application.exception.NoPageException;
+import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.conn.ConnectionPoolTimeoutException;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 @Configuration
@@ -37,17 +44,36 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
     }
 
     @Bean
-    public Step getMovieRatingsStep()
+    public Step getMovieRatingsMasterStep()
     {
-        return stepBuilder.get("getMovieRatingsStep")
+        return stepBuilder.get("getMovieRatingsMasterStep")
+                .partitioner(getMovieRatingsSlaveStep())
+                .partitioner("getMovieRatingsSlaveStep", imdbUsersPartitioner())
+                .taskExecutor(asyncTaskExecutor)
+                .gridSize(8)
+                .build();
+    }
+
+    @Bean
+    public Step getMovieRatingsSlaveStep()
+    {
+        return stepBuilder.get("getMovieRatingsSlaveStep")
                 .<ImdbUser, List<MovieRating>>chunk(1)
                 .faultTolerant()
+
                 .skip(NoPageException.class)
-                .skip(DataIntegrityViolationException.class)
                 .skipLimit(1000000)
-                .reader(imdbUsersReader())
+
+                .retry(SocketTimeoutException.class)
+                .retry(ConnectionPoolTimeoutException.class)
+                .retry(ConnectTimeoutException.class)
+                .retry(IOException.class)
+                .retryLimit(1000000)
+
+                .reader(imdbUsersReader(null))
                 .processor(imdbUserProcessor())
                 .writer(movieRatingsWriter())
+
                 .build();
     }
 
@@ -65,8 +91,14 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
     {
         return jobBuilder.get("imdbRatingsJob")
                 .incrementer(incrementer())
-                .start(getMovieRatingsStep())
+                .start(getMovieRatingsSlaveStep())
                 .build();
+    }
+
+    @Bean
+    public Partitioner imdbUsersPartitioner()
+    {
+        return new ImdbUsersPartitioner();
     }
 
     @Bean
@@ -90,9 +122,10 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
 
     @Bean
     @StepScope
-    public ItemStreamReader<ImdbUser> imdbUsersReader()
+    public ItemStreamReader<ImdbUser> imdbUsersReader(
+            @Value ("#{stepExecutionContext['fromId']}") List<ImdbUser> imdbUsers)
     {
-        return new ImdbUserReader();
+        return new ImdbUserReader(imdbUsers);
     }
 
     @Bean

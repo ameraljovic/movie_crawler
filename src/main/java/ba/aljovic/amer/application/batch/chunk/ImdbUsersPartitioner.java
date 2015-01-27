@@ -1,40 +1,32 @@
 package ba.aljovic.amer.application.batch.chunk;
 
-import ba.aljovic.amer.application.utils.Utils;
+import ba.aljovic.amer.application.database.ImdbUsersRepository;
+import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbUser;
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.item.ExecutionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ImdbUsersPartitioner implements Partitioner
 {
-    private Integer fromId;
-    private Integer range;
+    private List<ImdbUser> users;
 
-    public ImdbUsersPartitioner(Integer fromId, Integer range)
+    @Autowired
+    private ImdbUsersRepository repository;
+
+    @PostConstruct
+    public void findUsers()
     {
-        this.fromId = fromId;
-        this.range = range;
+        users = (List<ImdbUser>)repository.findAll();
     }
 
     @Override
     public Map<String, ExecutionContext> partition(int gridSize)
     {
-        assert gridSize > 0;
-        Map<String, ExecutionContext> result = new HashMap<>();
-        for (int i = 1; i <= gridSize; i++)
-        {
-            Integer toId = fromId + range - 1;
-
-            ExecutionContext value = new ExecutionContext();
-            value.putInt(Utils.FROM_ID, fromId);
-            value.putInt(Utils.TO_ID, toId);
-            value.putString("name", "Thread" + i);
-            result.put("partition" + i, value);
-
-            fromId += range;
-        }
-        return result;
+        return new HashMap<>();
     }
 }

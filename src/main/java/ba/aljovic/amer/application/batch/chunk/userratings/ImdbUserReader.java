@@ -7,7 +7,6 @@ import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 public class ImdbUserReader implements ItemStreamReader<ImdbUser>
@@ -20,10 +19,9 @@ public class ImdbUserReader implements ItemStreamReader<ImdbUser>
 
     private int readUsers;
 
-    @PostConstruct
-    public void findUsers()
+    public ImdbUserReader(List<ImdbUser> users)
     {
-        users = (List<ImdbUser>)repository.findAll();
+        this.users = users;
     }
 
     @Override
