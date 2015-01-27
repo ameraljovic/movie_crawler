@@ -15,6 +15,15 @@ public class ImdbUsersWriter implements ItemWriter<List<ImdbUser>>
     @Override
     public void write(List<? extends List<ImdbUser>> items) throws Exception
     {
-        items.forEach(repository::save);
+        for (List<ImdbUser> users : items)
+        {
+            for (ImdbUser user : users)
+            {
+                if (!repository.existsByUsername(user.getUsername()))
+                {
+                    repository.save(user);
+                }
+            }
+        }
     }
 }

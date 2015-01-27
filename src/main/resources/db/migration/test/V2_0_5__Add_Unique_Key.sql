@@ -1,8 +1,0 @@
-DROP TABLE `imdb_users`;
-
-CREATE TABLE `imdb_users` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(256) UNIQUE NOT NULL,
-  `url` VARCHAR(256) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);

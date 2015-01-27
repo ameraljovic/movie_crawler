@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MoviesRepository extends CrudRepository<Movie, Integer>
 {
+    public Movie findByImdbId(String imdbId);
 }

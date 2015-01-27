@@ -1,16 +1,16 @@
 package ba.aljovic.amer.application.exception;
 
-public class NoReviewsForUserException extends Exception
+public class NoPageException extends Exception
 {
     private String url;
 
-    public NoReviewsForUserException(String url)
+    public NoPageException(String url)
     {
         super("");
         this.url = url;
     }
 
-    public NoReviewsForUserException(String message, String url)
+    public NoPageException(String message, String url)
     {
         super(message);
         this.url = url;

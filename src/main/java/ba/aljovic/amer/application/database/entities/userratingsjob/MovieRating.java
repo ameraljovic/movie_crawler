@@ -24,6 +24,13 @@ public class MovieRating
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private ImdbUser user;
 
+    public MovieRating(int rating, Movie movie, ImdbUser user)
+    {
+        this.rating = rating;
+        this.movie = movie;
+        this.user = user;
+    }
+
     //region GETTERS & SETTERS
     public Long getId()
     {

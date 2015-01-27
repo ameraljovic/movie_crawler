@@ -50,12 +50,20 @@ public class BatchController
         return "Failed movies job started";
     }
 
-    @RequestMapping(value = "/userRatings", method = RequestMethod.GET)
-    public String launchUserRatingsJob() throws Exception
+    @RequestMapping(value = "/imdbMovies/{jobId}", method = RequestMethod.GET)
+    public String launchUserRatingsJob(@PathVariable Long jobId) throws Exception
     {
-        userRatingsJobLauncher.launch();
+        userRatingsJobLauncher.launchImdbMoviesJob(jobId);
         return "User ratings job started";
     }
+
+    @RequestMapping(value = "/imdbRatings/{jobId}", method = RequestMethod.GET)
+    public String imdbRatingsJob(@PathVariable Long jobId) throws Exception
+    {
+        userRatingsJobLauncher.launchImdbRatingsJob(jobId);
+        return "User ratings job started";
+    }
+
 
     @RequestMapping(value = "/stopJob/{jobName}", method = RequestMethod.GET)
     public String stopJob(@PathVariable String jobName)

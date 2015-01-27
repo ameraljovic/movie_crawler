@@ -26,7 +26,7 @@ public class UserRatingsJobTest
     @Test
     public void test() throws Exception
     {
-        launcher.launch();
+        launcher.launchImdbMoviesJob();
         assertEquals("Number of movies should be 250",
                 250, utilsFacade.findAllImdbMovies().size());
     }

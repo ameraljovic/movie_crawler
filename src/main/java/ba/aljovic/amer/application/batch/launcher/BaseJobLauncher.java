@@ -30,4 +30,13 @@ public class BaseJobLauncher
         jobParameters = builder.toJobParameters();
         return jobParameters;
     }
+
+    protected static JobParameters createJobParameters(Long jobId)
+    {
+        JobParameters jobParameters;
+        JobParametersBuilder builder = new JobParametersBuilder();
+        builder.addLong("JOB_ID", jobId);
+        jobParameters = builder.toJobParameters();
+        return jobParameters;
+    }
 }

@@ -4,15 +4,13 @@ import ba.aljovic.amer.application.component.service.HttpRetriever;
 import ba.aljovic.amer.application.component.service.ImdbParser;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbMovie;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbUser;
-import ba.aljovic.amer.application.exception.NoReviewsForUserException;
+import ba.aljovic.amer.application.exception.NoPageException;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class ImdbMovieProcessor implements ItemProcessor<ImdbMovie, List<ImdbUser>>
 {
     @Autowired
@@ -28,8 +26,7 @@ public class ImdbMovieProcessor implements ItemProcessor<ImdbMovie, List<ImdbUse
         String userRatingsUrl = imdbParser.getUserRatingsPage(movieHtml);
         if (userRatingsUrl == null)
         {
-            throw new NoReviewsForUserException("User reviews could not be found for imdb movie with url "
-                    + movieHtml, movieHtml);
+            throw new NoPageException("User reviews could not be found for imdb movie with url " + movieHtml, movieHtml);
         }
 
         List<ImdbUser> imdbUsers = new ArrayList<>();
@@ -40,8 +37,8 @@ public class ImdbMovieProcessor implements ItemProcessor<ImdbMovie, List<ImdbUse
             List<ImdbUser> imdbUsersForPage = imdbParser.getUsersOnPage(userHtml);
             imdbUsers.addAll(imdbUsersForPage);
 
-            userRatingsUrl = movie.getUrl().replaceAll("\\?.*", "") +  imdbParser.nextPage(userHtml);
-        } while (imdbParser.nextPage(userHtml) != null);
+            userRatingsUrl = movie.getUrl().replaceAll("\\?.*", "") + imdbParser.nextMovieReviewPage(userHtml);
+        } while (imdbParser.nextMovieReviewPage(userHtml) != null);
         return imdbUsers;
     }
 }
