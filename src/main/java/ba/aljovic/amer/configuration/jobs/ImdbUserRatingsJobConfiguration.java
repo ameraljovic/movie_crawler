@@ -70,7 +70,7 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
                 .retry(IOException.class)
                 .retryLimit(1000000)
 
-                .reader(imdbUsersReader(null))
+                .reader(imdbUsersReader(null, null))
                 .processor(imdbUserProcessor())
                 .writer(movieRatingsWriter())
 
@@ -91,7 +91,7 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
     {
         return jobBuilder.get("imdbRatingsJob")
                 .incrementer(incrementer())
-                .start(getMovieRatingsSlaveStep())
+                .start(getMovieRatingsMasterStep())
                 .build();
     }
 
@@ -123,9 +123,10 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
     @Bean
     @StepScope
     public ItemStreamReader<ImdbUser> imdbUsersReader(
-            @Value ("#{stepExecutionContext['fromId']}") List<ImdbUser> imdbUsers)
+            @Value ("#{stepExecutionContext['fromId']}") Long fromId,
+            @Value ("#{stepExecutionContext['toId']}") Long toId)
     {
-        return new ImdbUserReader(imdbUsers);
+        return new ImdbUserReader(fromId, toId);
     }
 
     @Bean

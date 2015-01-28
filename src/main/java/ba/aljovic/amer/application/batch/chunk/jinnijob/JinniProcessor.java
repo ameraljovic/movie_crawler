@@ -25,7 +25,6 @@ public class JinniProcessor implements ItemProcessor<Movie, Movie>
     @Override
     public Movie process(Movie movie) throws Exception
     {
-
         try
         {
             logger.info("PROCESSOR:Parsing url for movie '" + movie.getTitle() + "'.");

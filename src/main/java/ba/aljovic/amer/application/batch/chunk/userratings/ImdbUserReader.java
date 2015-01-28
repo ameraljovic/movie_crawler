@@ -1,35 +1,46 @@
 package ba.aljovic.amer.application.batch.chunk.userratings;
 
-import ba.aljovic.amer.application.database.UserRepository;
+import ba.aljovic.amer.application.database.ImdbUsersRepository;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbUser;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 public class ImdbUserReader implements ItemStreamReader<ImdbUser>
 {
     private static final String IMDB_USERS_COUNT = "imdb_user_count";
+    private final Long toId;
+    private final Long fromId;
     private List<ImdbUser> users;
-
-    @Autowired
-    private UserRepository repository;
-
     private int readUsers;
 
-    public ImdbUserReader(List<ImdbUser> users)
+    @Autowired
+    private ImdbUsersRepository repository;
+
+
+    public ImdbUserReader(Long fromId, Long toId)
     {
-        this.users = users;
+        this.fromId = fromId;
+        this.toId = toId;
     }
+
+    @PostConstruct
+    public void findUsers()
+    {
+        users = repository.findUsersByRange(fromId, toId);
+    }
+
 
     @Override
     public ImdbUser read()
     {
         try
         {
-            if (readUsers <= users.size())
+            if (readUsers <= users.size() && !users.isEmpty())
             {
                 return users.get(readUsers);
             }

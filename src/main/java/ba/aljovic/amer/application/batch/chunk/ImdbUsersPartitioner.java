@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class ImdbUsersPartitioner implements Partitioner
 {
+    public static final String FROM_ID = "fromId";
+    public static final String TO_ID = "toId";
     private List<ImdbUser> users;
 
     @Autowired
@@ -27,6 +29,23 @@ public class ImdbUsersPartitioner implements Partitioner
     @Override
     public Map<String, ExecutionContext> partition(int gridSize)
     {
-        return new HashMap<>();
+        assert gridSize > 0;
+        Map<String, ExecutionContext> result = new HashMap<>();
+        Integer partitionSize = users.size() / gridSize;
+        Integer leftOver = users.size() - partitionSize * gridSize;
+        Long fromId = users.get(0).getId();
+        for (int i = 0; i < gridSize; i++)
+        {
+            Long toId = fromId + partitionSize - 1;
+            if (i == gridSize - 1) toId += leftOver;
+            ExecutionContext value = new ExecutionContext();
+            value.putLong(FROM_ID, fromId);
+            value.putLong(TO_ID, toId);
+            value.putString("name", "Thread" + 1);
+            result.put("partition" + (i + 1), value);
+
+            fromId += partitionSize;
+        }
+        return result;
     }
 }
