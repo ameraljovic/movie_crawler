@@ -1,6 +1,5 @@
 package ba.aljovic.amer.application.batch.chunk;
 
-import ba.aljovic.amer.application.utils.Utils;
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.item.ExecutionContext;
 
@@ -9,6 +8,8 @@ import java.util.Map;
 
 public class RangePartitioner implements Partitioner
 {
+    public static final String FROM_ID = "fromId";
+    public static final String TO_ID = "toId";
     private Integer fromId;
     private Integer range;
 
@@ -28,8 +29,8 @@ public class RangePartitioner implements Partitioner
             Integer toId = fromId + range - 1;
 
             ExecutionContext value = new ExecutionContext();
-            value.putInt(Utils.FROM_ID, fromId);
-            value.putInt(Utils.TO_ID, toId);
+            value.putInt(FROM_ID, fromId);
+            value.putInt(TO_ID, toId);
             value.putString("name", "Thread" + i);
             result.put("partition" + i, value);
 
