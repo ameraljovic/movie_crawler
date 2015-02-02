@@ -44,23 +44,18 @@ public class FailedMoviesJobConfiguration extends JobConfiguration
     public Step failedMoviesStep()
     {
         return stepBuilder.get("failedMoviesStep")
-                .<Movie, Movie>chunk(100)
+                .<Movie, Movie>chunk(5)
+                .reader(failedMoviesReader())
+                .processor(failedMoviesProcessor())
+                .writer(failedMoviesWriter())
                 .faultTolerant()
-
                 .skip(JinniMovieNotFoundException.class)
                 .skip(SuspiciousMovieException.class)
                 .skip(SocketTimeoutException.class)
                 .skipLimit(100000)
-
                 .retry(SocketTimeoutException.class)
                 .retryLimit(10000)
-
-                .reader(failedMoviesReader())
-                .processor(failedMoviesProcessor())
-                .writer(failedMoviesWriter())
-
                 .listener(failedMoviesReaderListener)
-
                 .build();
     }
 

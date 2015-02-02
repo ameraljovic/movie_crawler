@@ -1,16 +1,16 @@
 package ba.aljovic.amer.application.exception;
 
-public class NoPageException extends Exception
+public class PageNotFoundException extends Exception
 {
     private String url;
 
-    public NoPageException(String url)
+    public PageNotFoundException(String url)
     {
         super("");
         this.url = url;
     }
 
-    public NoPageException(String message, String url)
+    public PageNotFoundException(String message, String url)
     {
         super(message);
         this.url = url;

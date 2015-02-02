@@ -4,7 +4,7 @@ import ba.aljovic.amer.application.component.service.HttpRetriever;
 import ba.aljovic.amer.application.component.service.ImdbParser;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbMovie;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbUser;
-import ba.aljovic.amer.application.exception.NoPageException;
+import ba.aljovic.amer.application.exception.PageNotFoundException;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,7 +26,7 @@ public class ImdbMovieProcessor implements ItemProcessor<ImdbMovie, List<ImdbUse
         String userRatingsUrl = imdbParser.getUserRatingsPage(movieHtml);
         if (userRatingsUrl == null)
         {
-            throw new NoPageException("User reviews could not be found for imdb movie with url " + movieHtml, movieHtml);
+            throw new PageNotFoundException("User reviews could not be found for imdb movie with url " + movieHtml, movieHtml);
         }
 
         List<ImdbUser> imdbUsers = new ArrayList<>();

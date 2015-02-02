@@ -5,11 +5,11 @@ import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbMovie;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbUser;
 import ba.aljovic.amer.application.database.entities.userratingsjob.MovieRating;
+import ba.aljovic.amer.application.exception.PageNotFoundException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -106,7 +106,7 @@ public class ImdbParser
         return null;
     }
 
-    String findRatingElement(Element element)
+    String findRatingElement(Element element) throws PageNotFoundException
     {
         for (int i = 0; i < element.children().size(); i++)
         {
@@ -115,10 +115,10 @@ public class ImdbParser
                 return element.child(i).attr("id");
             }
         }
-        throw new UnexpectedInputException("could not find rating for html:\n" + element.toString());
+        throw new PageNotFoundException("could not find rating for html:\n" + element.toString());
     }
 
-    public List<MovieRating> getRatingsForPage(String html, ImdbUser user)
+    public List<MovieRating> getRatingsForPage(String html, ImdbUser user) throws PageNotFoundException
     {
         List<MovieRating> movieRatings = new ArrayList<>();
         Document doc = Jsoup.parse(html);

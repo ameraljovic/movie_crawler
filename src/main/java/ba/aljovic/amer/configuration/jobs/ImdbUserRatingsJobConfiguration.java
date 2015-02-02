@@ -5,7 +5,7 @@ import ba.aljovic.amer.application.batch.chunk.userratings.*;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbMovie;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbUser;
 import ba.aljovic.amer.application.database.entities.userratingsjob.MovieRating;
-import ba.aljovic.amer.application.exception.NoPageException;
+import ba.aljovic.amer.application.exception.PageNotFoundException;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.conn.ConnectionPoolTimeoutException;
 import org.springframework.batch.core.Job;
@@ -34,7 +34,7 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
         return stepBuilder.get("getMoviesStep")
                 .<ImdbMovie, List<ImdbUser>>chunk(1)
                 .faultTolerant()
-                .skip(NoPageException.class)
+                .skip(PageNotFoundException.class)
                 .skip(DataIntegrityViolationException.class)
                 .skipLimit(1000000)
                 .reader(imdbMoviesReader())
@@ -57,11 +57,11 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
     @Bean
     public Step getMovieRatingsSlaveStep()
     {
-        return stepBuilder.get("getMovieRatingsSlaveStep")
+        return stepBuilder.get("")
                 .<ImdbUser, List<MovieRating>>chunk(1)
                 .faultTolerant()
 
-                .skip(NoPageException.class)
+                .skip(PageNotFoundException.class)
                 .skipLimit(1000000)
 
                 .retry(SocketTimeoutException.class)

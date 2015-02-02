@@ -11,9 +11,9 @@ public class FailedMoviesJobLauncher extends BaseJobLauncher
     @Autowired
     private Job failedMoviesJob;
 
-    public void launch(Long fromId, Long range) throws Exception
+    public void launch() throws Exception
     {
-        JobParameters jobParameters = createJobParameters(fromId, range);
+        JobParameters jobParameters = createJobParameters();
         jobLauncher.run(failedMoviesJob, jobParameters);
     }
 }

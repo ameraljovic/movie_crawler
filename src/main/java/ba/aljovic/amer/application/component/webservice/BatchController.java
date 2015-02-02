@@ -42,11 +42,10 @@ public class BatchController
         return "Crawling job started";
     }
 
-    @RequestMapping(value = "/failedMovies/from/{fromId}/range/{range}", method = RequestMethod.GET)
-    public String launchFailedMoviesJob(@PathVariable Long fromId,
-                                        @PathVariable Long range) throws Exception
+    @RequestMapping(value = "/failedMovies", method = RequestMethod.GET)
+    public String launchFailedMoviesJob() throws Exception
     {
-        failedMoviesJobLauncher.launch(fromId, range);
+        failedMoviesJobLauncher.launch();
         return "Failed movies job started";
     }
 
