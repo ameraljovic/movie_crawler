@@ -1,10 +1,3 @@
-CREATE TABLE `staging_imdb_movies` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(256) DEFAULT NULL,
-  `url` VARCHAR(256) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);
-
 CREATE TABLE `imdb_users` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(256) UNIQUE NOT NULL,

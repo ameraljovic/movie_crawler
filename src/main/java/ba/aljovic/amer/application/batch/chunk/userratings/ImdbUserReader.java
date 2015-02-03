@@ -8,15 +8,17 @@ import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ImdbUserReader implements ItemStreamReader<ImdbUser>
 {
     private static final String IMDB_USERS_COUNT = "imdb_user_count";
     private final Long toId;
     private final Long fromId;
-    private List<ImdbUser> users;
-    private int readUsers;
+    private List<Long> userIds;
+    private int userCount;
 
     @Autowired
     private ImdbUsersRepository repository;
@@ -31,7 +33,12 @@ public class ImdbUserReader implements ItemStreamReader<ImdbUser>
     @PostConstruct
     public void findUsers()
     {
-        users = repository.findUsersByRange(fromId, toId);
+        userIds = new ArrayList<>();
+        List<ImdbUser> users = repository.findUsersByRange(fromId, toId);
+        userIds.addAll(users
+                .stream()
+                .map(ImdbUser::getId)
+                .collect(Collectors.toList()));
     }
 
 
@@ -40,15 +47,15 @@ public class ImdbUserReader implements ItemStreamReader<ImdbUser>
     {
         try
         {
-            if (readUsers <= users.size() && !users.isEmpty())
+            if (userCount <= userIds.size() && !userIds.isEmpty())
             {
-                return users.get(readUsers);
+                return repository.findOne(userIds.get(userCount));
             }
             return null;
         }
         finally
         {
-            readUsers++;
+            userCount++;
         }
     }
 
@@ -58,14 +65,14 @@ public class ImdbUserReader implements ItemStreamReader<ImdbUser>
     {
         if (executionContext.containsKey(IMDB_USERS_COUNT))
         {
-            readUsers = executionContext.getInt(IMDB_USERS_COUNT);
+            userCount = executionContext.getInt(IMDB_USERS_COUNT);
         }
     }
 
     @Override
     public void update(ExecutionContext executionContext) throws ItemStreamException
     {
-        executionContext.putInt(IMDB_USERS_COUNT, readUsers);
+        executionContext.putInt(IMDB_USERS_COUNT, userCount);
     }
 
     @Override
