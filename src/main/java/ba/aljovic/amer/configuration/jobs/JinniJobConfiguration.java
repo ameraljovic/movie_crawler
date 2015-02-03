@@ -27,26 +27,21 @@ public class JinniJobConfiguration extends JobConfiguration
     {
         return stepBuilder.get("jinniSlaveStep")
                 .<Movie, Movie>chunk(5)
+                .reader(tmdbReader(0, 10))
+                .processor(jinniProcessor())
+                .writer(jinniWriter())
                 .faultTolerant()
-
+                .processorNonTransactional()
                 .skip(TmdbMovieNotFoundException.class)
                 .skip(JinniMovieNotFoundException.class)
                 .skip(IOException.class)
                 .skipLimit(10000000)
-
                 .retry(SocketTimeoutException.class)
                 .retry(ConnectionPoolTimeoutException.class)
                 .retry(ConnectTimeoutException.class)
                 .retry(IOException.class)
                 .retryLimit(1000000)
-                .processorNonTransactional()
-
-                .reader(tmdbReader(0, 10))
-                .processor(jinniProcessor())
-                .writer(jinniWriter())
-
                 .listener(jinniProcessorListener)
-
                 .build();
     }
 
