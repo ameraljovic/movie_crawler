@@ -5,7 +5,7 @@ import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "movie_ratings")
+@Table(name = "movie_rating")
 public class MovieRating
 {
     @Id
