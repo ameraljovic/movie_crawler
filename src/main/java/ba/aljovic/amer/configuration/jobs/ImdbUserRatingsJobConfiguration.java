@@ -98,7 +98,7 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
     @Bean
     public Partitioner imdbUsersPartitioner()
     {
-        return new ImdbUsersPartitioner();
+        return new ImdbUsersPartitioner(imdbUsersRepository);
     }
 
     @Bean

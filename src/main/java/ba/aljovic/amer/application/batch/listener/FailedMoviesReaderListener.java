@@ -1,8 +1,8 @@
 package ba.aljovic.amer.application.batch.listener;
 
 import ba.aljovic.amer.application.database.MovieFacade;
-import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import ba.aljovic.amer.application.database.entities.failedmoviesjob.StatusEnum;
+import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import ba.aljovic.amer.application.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.application.exception.SuspiciousMovieException;
 import org.springframework.batch.core.ItemReadListener;
@@ -14,8 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class FailedMoviesReaderListener implements ItemReadListener<Movie>
 {
-    @Autowired
     private MovieFacade movieFacade;
+
+    @Autowired
+    public FailedMoviesReaderListener(MovieFacade movieFacade)
+    {
+        this.movieFacade = movieFacade;
+    }
 
     @Override
     public void beforeRead() {}

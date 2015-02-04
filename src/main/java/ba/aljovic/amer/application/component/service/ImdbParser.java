@@ -1,6 +1,6 @@
 package ba.aljovic.amer.application.component.service;
 
-import ba.aljovic.amer.application.database.MoviesRepository;
+import ba.aljovic.amer.application.database.repositories.MoviesRepository;
 import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbMovie;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbUser;
@@ -22,6 +22,12 @@ public class ImdbParser
     public static final String IMDB_BASE_URL = "http://www.imdb.com";
 
     private MoviesRepository moviesRepository;
+
+    @Autowired
+    public ImdbParser(MoviesRepository moviesRepository)
+    {
+        this.moviesRepository = moviesRepository;
+    }
 
     public List<ImdbMovie> parseTop250(String html)
     {
@@ -153,11 +159,5 @@ public class ImdbParser
             }
         }
         return null;
-    }
-
-    @Autowired
-    public void setMoviesRepository(MoviesRepository moviesRepository)
-    {
-        this.moviesRepository = moviesRepository;
     }
 }

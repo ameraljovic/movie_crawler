@@ -14,19 +14,15 @@ import java.util.List;
 
 public class FailedMoviesReader implements ItemReader<Movie>
 {
-    private List<FailedMovie> failedMovies;
-    private int currentItemCount;
-    private int maxItemCount;
     private MovieFacade movieFacade;
     private MovieRetriever movieRetriever;
+    private int currentItemCount;
+    private List<FailedMovie> failedMovies;
+    private int maxItemCount;
 
-    // Called first
-    public void setMovieFacade(MovieFacade movieFacade)
+    public FailedMoviesReader(MovieFacade movieFacade, MovieRetriever movieRetriever)
     {
         this.movieFacade = movieFacade;
-    }
-    public void setMovieRetriever(MovieRetriever movieRetriever)
-    {
         this.movieRetriever = movieRetriever;
     }
 
@@ -34,8 +30,8 @@ public class FailedMoviesReader implements ItemReader<Movie>
     @PostConstruct
     public void init()
     {
-        failedMovies = movieFacade.getFailedMovies();
         currentItemCount = 0;
+        failedMovies = movieFacade.getFailedMovies();
         maxItemCount = failedMovies.size();
     }
 

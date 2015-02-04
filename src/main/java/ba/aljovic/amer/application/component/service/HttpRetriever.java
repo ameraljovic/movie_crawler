@@ -26,7 +26,6 @@ public class HttpRetriever
     private CloseableHttpClient httpClient;
     private static final int TIMEOUT_IN_MILLIS = 20_000;
 
-
     @PostConstruct
     public void init()
     {

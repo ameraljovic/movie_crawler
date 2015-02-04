@@ -3,6 +3,10 @@ package ba.aljovic.amer.configuration.jobs;
 import ba.aljovic.amer.application.batch.chunk.jinnijob.JinniProcessor;
 import ba.aljovic.amer.application.batch.chunk.jinnijob.JinniWriter;
 import ba.aljovic.amer.application.batch.chunk.jinnijob.TmdbReader;
+import ba.aljovic.amer.application.component.service.HttpRetriever;
+import ba.aljovic.amer.application.component.service.JinniParser;
+import ba.aljovic.amer.application.component.service.MovieRetriever;
+import ba.aljovic.amer.application.database.MovieFacade;
 import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import ba.aljovic.amer.application.exception.JinniMovieNotFoundException;
 import ba.aljovic.amer.application.exception.TmdbMovieNotFoundException;
@@ -12,6 +16,7 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemStreamReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -71,18 +76,18 @@ public class JinniJobConfiguration extends JobConfiguration
     public ItemStreamReader<Movie> tmdbReader(@Value ("#{stepExecutionContext['fromId']}") Integer fromId,
                                               @Value("#{stepExecutionContext['toId']}") Integer toId)
     {
-        return new TmdbReader(fromId, toId);
+        return new TmdbReader(movieRetriever, fromId, toId);
     }
 
     @Bean
     public JinniProcessor jinniProcessor()
     {
-        return new JinniProcessor();
+        return new JinniProcessor(jinniParser, httpRetriever);
     }
 
     @Bean
     public JinniWriter jinniWriter()
     {
-        return new JinniWriter();
+        return new JinniWriter(movieFacade);
     }
 }

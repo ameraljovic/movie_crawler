@@ -1,6 +1,6 @@
 package ba.aljovic.amer.application.batch.chunk.userratings;
 
-import ba.aljovic.amer.application.database.ImdbUsersRepository;
+import ba.aljovic.amer.application.database.repositories.ImdbUsersRepository;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbUser;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemStreamException;

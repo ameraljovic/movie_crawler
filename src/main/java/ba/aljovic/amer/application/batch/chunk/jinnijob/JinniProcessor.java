@@ -22,6 +22,13 @@ public class JinniProcessor implements ItemProcessor<Movie, Movie>
 
     private HttpRetriever httpRetriever;
 
+    @Autowired
+    public JinniProcessor(JinniParser parser, HttpRetriever httpRetriever)
+    {
+        this.parser = parser;
+        this.httpRetriever = httpRetriever;
+    }
+
     @Override
     public Movie process(Movie movie) throws Exception
     {
@@ -60,17 +67,5 @@ public class JinniProcessor implements ItemProcessor<Movie, Movie>
                     "Error message: " + exception.getMessage());
             throw exception;
         }
-    }
-
-    @Autowired
-    public void setParser(JinniParser parser)
-    {
-        this.parser = parser;
-    }
-
-    @Autowired
-    public void setHttpRetriever(HttpRetriever httpRetriever)
-    {
-        this.httpRetriever = httpRetriever;
     }
 }

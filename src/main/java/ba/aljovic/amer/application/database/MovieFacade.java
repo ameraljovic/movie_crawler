@@ -3,6 +3,8 @@ package ba.aljovic.amer.application.database;
 import ba.aljovic.amer.application.database.entities.failedmoviesjob.FailedMovie;
 import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import ba.aljovic.amer.application.database.entities.failedmoviesjob.StatusEnum;
+import ba.aljovic.amer.application.database.repositories.FailedMoviesRepository;
+import ba.aljovic.amer.application.database.repositories.MoviesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +13,16 @@ import java.util.List;
 @Repository
 public class MovieFacade
 {
-    @Autowired
     private MoviesRepository moviesRepository;
 
-    @Autowired
     private FailedMoviesRepository failedMoviesRepository;
+
+    @Autowired
+    public MovieFacade(MoviesRepository moviesRepository, FailedMoviesRepository failedMoviesRepository)
+    {
+        this.moviesRepository = moviesRepository;
+        this.failedMoviesRepository = failedMoviesRepository;
+    }
 
     public void insertMovie(Movie movie)
     {

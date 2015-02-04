@@ -19,20 +19,45 @@ import java.util.Set;
 @RestController
 public class BatchController
 {
-    @Autowired
     private JinniJobLauncher jinniJobLauncher;
 
-    @Autowired
     private FailedMoviesJobLauncher failedMoviesJobLauncher;
 
-    @Autowired
     private UserRatingsJobLauncher userRatingsJobLauncher;
 
-    @Autowired
     private JobOperator jobOperator;
 
-    @Autowired
     private UtilsFacade utilsFacade;
+
+    @Autowired
+    public void setJinniJobLauncher(JinniJobLauncher jinniJobLauncher)
+    {
+        this.jinniJobLauncher = jinniJobLauncher;
+    }
+
+    @Autowired
+    public void setFailedMoviesJobLauncher(FailedMoviesJobLauncher failedMoviesJobLauncher)
+    {
+        this.failedMoviesJobLauncher = failedMoviesJobLauncher;
+    }
+
+    @Autowired
+    public void setUserRatingsJobLauncher(UserRatingsJobLauncher userRatingsJobLauncher)
+    {
+        this.userRatingsJobLauncher = userRatingsJobLauncher;
+    }
+
+    @Autowired
+    public void setJobOperator(JobOperator jobOperator)
+    {
+        this.jobOperator = jobOperator;
+    }
+
+    @Autowired
+    public void setUtilsFacade(UtilsFacade utilsFacade)
+    {
+        this.utilsFacade = utilsFacade;
+    }
 
     @RequestMapping(value = "/crawl/from/{fromId}/range/{range}", method = RequestMethod.GET)
     public String launchJinniJob(@PathVariable Long fromId,

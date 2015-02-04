@@ -9,15 +9,17 @@ import java.util.List;
 
 public class JinniWriter implements ItemWriter<Movie>
 {
-    @Autowired
     private MovieFacade movieFacade;
+
+    @Autowired
+    public JinniWriter(MovieFacade movieFacade)
+    {
+        this.movieFacade = movieFacade;
+    }
 
     @Override
     public void write(List<? extends Movie> movies) throws Exception
     {
-        for (Movie movie : movies)
-        {
-            movieFacade.insertMovie(movie);
-        }
+        movies.forEach(movieFacade::insertMovie);
     }
 }

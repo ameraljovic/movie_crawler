@@ -1,4 +1,4 @@
-package ba.aljovic.amer.application.database;
+package ba.aljovic.amer.application.database.repositories;
 
 import ba.aljovic.amer.application.database.entities.userratingsjob.MovieRating;
 import org.springframework.data.repository.CrudRepository;

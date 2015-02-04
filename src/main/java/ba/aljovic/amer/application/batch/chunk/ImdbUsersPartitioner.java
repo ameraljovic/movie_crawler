@@ -1,10 +1,9 @@
 package ba.aljovic.amer.application.batch.chunk;
 
-import ba.aljovic.amer.application.database.ImdbUsersRepository;
+import ba.aljovic.amer.application.database.repositories.ImdbUsersRepository;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbUser;
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.item.ExecutionContext;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
@@ -17,8 +16,12 @@ public class ImdbUsersPartitioner implements Partitioner
     public static final String TO_ID = "toId";
     private List<ImdbUser> users;
 
-    @Autowired
     private ImdbUsersRepository repository;
+
+    public ImdbUsersPartitioner(ImdbUsersRepository repository)
+    {
+        this.repository = repository;
+    }
 
     @PostConstruct
     public void findUsers()

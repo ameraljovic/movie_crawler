@@ -17,12 +17,9 @@ public class MovieRetrieverTest
     @Before
     public void prepare()
     {
-        movieRetriever = new MovieRetriever();
         HttpRetriever httpRetriever = new HttpRetriever();
         httpRetriever.init();
-        movieRetriever.setHttpRetriever(httpRetriever);
-        movieRetriever.setJinniParser(new JinniParser());
-        movieRetriever.setJsonParser(new JSONParser());
+        movieRetriever = new MovieRetriever(httpRetriever, new JSONParser(), new JinniParser());
     }
 
     @Test

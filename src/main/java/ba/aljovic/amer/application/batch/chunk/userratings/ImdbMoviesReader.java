@@ -2,7 +2,7 @@ package ba.aljovic.amer.application.batch.chunk.userratings;
 
 import ba.aljovic.amer.application.component.service.HttpRetriever;
 import ba.aljovic.amer.application.component.service.ImdbParser;
-import ba.aljovic.amer.application.database.ImdbMoviesRepository;
+import ba.aljovic.amer.application.database.repositories.ImdbMoviesRepository;
 import ba.aljovic.amer.application.database.entities.userratingsjob.ImdbMovie;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemReader;

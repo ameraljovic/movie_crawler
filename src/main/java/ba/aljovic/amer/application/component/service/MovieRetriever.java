@@ -25,8 +25,13 @@ public class MovieRetriever
     private JSONParser jsonParser;
     private JinniParser jinniParser;
 
-    public MovieRetriever()
+    @Autowired
+    public MovieRetriever(HttpRetriever httpRetriever, JSONParser jsonParser, JinniParser jinniParser)
     {
+        this.httpRetriever = httpRetriever;
+        this.jsonParser = jsonParser;
+        this.jinniParser = jinniParser;
+
         Arrays.sort(DIRTY_CHARACTERS);
         initializeCharactersMap();
         initializeLatinExtendedMap();
@@ -214,24 +219,4 @@ public class MovieRetriever
         charactersMapping.put('/', " ");
         charactersMapping.put('&', "and");
     }
-
-    @Autowired
-    public void setHttpRetriever(HttpRetriever httpRetriever)
-    {
-        this.httpRetriever = httpRetriever;
-    }
-
-    @Autowired
-    public void setJsonParser(JSONParser jsonParser)
-    {
-        this.jsonParser = jsonParser;
-    }
-
-    @Autowired
-    public void setJinniParser(JinniParser jinniParser)
-    {
-        this.jinniParser = jinniParser;
-    }
-
-
 }

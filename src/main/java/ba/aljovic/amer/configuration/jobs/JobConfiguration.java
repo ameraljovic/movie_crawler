@@ -1,8 +1,14 @@
 package ba.aljovic.amer.configuration.jobs;
 
 import ba.aljovic.amer.application.batch.chunk.RangePartitioner;
+import ba.aljovic.amer.application.component.service.HttpRetriever;
+import ba.aljovic.amer.application.component.service.JinniParser;
+import ba.aljovic.amer.application.component.service.MovieRetriever;
+import ba.aljovic.amer.application.database.repositories.ImdbUsersRepository;
+import ba.aljovic.amer.application.database.MovieFacade;
 import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
 import org.springframework.batch.core.ItemProcessListener;
+import org.springframework.batch.core.ItemReadListener;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.JobParametersIncrementer;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -36,7 +42,26 @@ public class JobConfiguration
     protected JobExecutionListener jinniJobListener;
 
     @Autowired
+    protected ItemReadListener<Movie> failedMoviesReaderListener;
+
+    @Autowired
     protected TaskExecutor asyncTaskExecutor;
+
+    @Autowired
+    protected ImdbUsersRepository imdbUsersRepository;
+
+    @Autowired
+    protected JinniParser jinniParser;
+
+    @Autowired
+    protected HttpRetriever httpRetriever;
+
+    @Autowired
+    protected MovieFacade movieFacade;
+
+    @Autowired
+    protected MovieRetriever movieRetriever;
+
 
     @Bean
     @StepScope

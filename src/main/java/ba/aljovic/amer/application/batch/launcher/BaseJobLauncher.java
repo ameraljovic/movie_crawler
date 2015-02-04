@@ -9,8 +9,13 @@ import java.util.Date;
 
 public class BaseJobLauncher
 {
-    @Autowired
     protected JobLauncher jobLauncher;
+
+    @Autowired
+    public BaseJobLauncher(JobLauncher jobLauncher)
+    {
+        this.jobLauncher = jobLauncher;
+    }
 
     protected static JobParameters createJobParameters(Long fromId, Long range)
     {

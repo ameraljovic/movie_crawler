@@ -3,6 +3,8 @@ package ba.aljovic.amer.configuration.jobs;
 import ba.aljovic.amer.application.batch.chunk.failedmoviesjob.FailedMoviesReader;
 import ba.aljovic.amer.application.batch.chunk.failedmoviesjob.FailedMoviesWriter;
 import ba.aljovic.amer.application.batch.chunk.jinnijob.JinniProcessor;
+import ba.aljovic.amer.application.component.service.HttpRetriever;
+import ba.aljovic.amer.application.component.service.JinniParser;
 import ba.aljovic.amer.application.component.service.MovieRetriever;
 import ba.aljovic.amer.application.database.MovieFacade;
 import ba.aljovic.amer.application.database.entities.jinnijob.Movie;
@@ -25,15 +27,6 @@ import java.net.SocketTimeoutException;
 @Configuration
 public class FailedMoviesJobConfiguration extends JobConfiguration
 {
-    @Autowired
-    private ItemReadListener<Movie> failedMoviesReaderListener;
-
-    @Autowired
-    private MovieFacade movieFacade;
-
-    @Autowired
-    private MovieRetriever movieRetriever;
-
     @Bean
     public JobParametersIncrementer jobIncrementer()
     {
@@ -73,23 +66,18 @@ public class FailedMoviesJobConfiguration extends JobConfiguration
     @StepScope
     public ItemReader<Movie> failedMoviesReader()
     {
-        FailedMoviesReader reader = new FailedMoviesReader();
-
-        reader.setMovieFacade(movieFacade);
-        reader.setMovieRetriever(movieRetriever);
-
-        return reader;
+        return new FailedMoviesReader(movieFacade, movieRetriever);
     }
 
     @Bean
     public JinniProcessor failedMoviesProcessor()
     {
-        return new JinniProcessor();
+        return new JinniProcessor(jinniParser, httpRetriever);
     }
 
     @Bean
     public ItemWriter<Movie> failedMoviesWriter()
     {
-        return new FailedMoviesWriter();
+        return new FailedMoviesWriter(movieFacade);
     }
 }

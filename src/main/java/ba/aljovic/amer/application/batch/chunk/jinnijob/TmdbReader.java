@@ -6,7 +6,6 @@ import ba.aljovic.amer.application.exception.TmdbMovieNotFoundException;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.ItemStreamReader;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -19,13 +18,13 @@ public class TmdbReader implements ItemStreamReader<Movie>
 
     private int maxItemCount;
 
-    @Autowired
     private MovieRetriever movieRetriever;
 
-    public TmdbReader(Integer fromId, Integer toId)
+    public TmdbReader(MovieRetriever movieRetriever, Integer fromId, Integer toId)
     {
-        currentItemCount = fromId;
-        maxItemCount = toId;
+        this.movieRetriever = movieRetriever;
+        this.currentItemCount = fromId;
+        this.maxItemCount = toId;
     }
 
     @Override

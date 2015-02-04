@@ -13,8 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class JinniProcessorListener implements ItemProcessListener<Movie, Movie>
 {
-    @Autowired
     private MovieFacade movieFacade;
+
+    @Autowired
+    public JinniProcessorListener(MovieFacade movieFacade)
+    {
+        this.movieFacade = movieFacade;
+    }
 
     @Override
     public void beforeProcess(Movie item) {}

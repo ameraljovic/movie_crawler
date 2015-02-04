@@ -1,6 +1,6 @@
 package ba.aljovic.amer.application.batch.chunk.userratings;
 
-import ba.aljovic.amer.application.database.MovieRatingRepository;
+import ba.aljovic.amer.application.database.repositories.MovieRatingRepository;
 import ba.aljovic.amer.application.database.entities.userratingsjob.MovieRating;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
