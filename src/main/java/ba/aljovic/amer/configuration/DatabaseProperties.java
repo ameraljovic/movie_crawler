@@ -1,4 +1,4 @@
-package ba.aljovic.amer.application.database;
+package ba.aljovic.amer.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
