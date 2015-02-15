@@ -18,7 +18,7 @@ public class ImdbUser
     @Column(name = "url")
     private String url;
 
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "user")
     private List<MovieRating> ratings;
 
     //region GETTERS & SETTERS
@@ -81,6 +81,17 @@ public class ImdbUser
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (ratings != null ? ratings.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "ImdbUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", url='" + url + '\'' +
+                ", ratings=" + ratings +
+                '}';
     }
     //endregion
 }

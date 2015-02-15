@@ -66,5 +66,16 @@ public class MovieRating
     {
         this.user = user;
     }
+
+    @Override
+    public String toString()
+    {
+        return "MovieRating{" +
+                "id=" + id +
+                ", rating=" + rating +
+                ", movie=" + movie +
+                ", user=" + user +
+                '}';
+    }
     //endregion
 }

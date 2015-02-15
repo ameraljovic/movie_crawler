@@ -145,5 +145,19 @@ public class Movie
         result = 31 * result + (url != null ? url.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", imdbId='" + imdbId + '\'' +
+                ", tmdbId=" + tmdbId +
+                ", url='" + url + '\'' +
+                ", genomes=" + genomes +
+                ", ratings=" + ratings +
+                '}';
+    }
     //endregion
 }

@@ -50,7 +50,7 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
                 .partitioner(getMovieRatingsSlaveStep())
                 .partitioner("getMovieRatingsSlaveStep", imdbUsersPartitioner())
                 .taskExecutor(asyncTaskExecutor)
-                .gridSize(8)
+                .gridSize(1)
                 .build();
     }
 

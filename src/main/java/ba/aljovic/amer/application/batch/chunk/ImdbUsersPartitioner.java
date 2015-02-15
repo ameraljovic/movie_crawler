@@ -16,17 +16,14 @@ public class ImdbUsersPartitioner implements Partitioner
     public static final String TO_ID = "toId";
     private List<ImdbUser> users;
 
-    private ImdbUsersRepository repository;
-
     public ImdbUsersPartitioner(ImdbUsersRepository repository)
     {
-        this.repository = repository;
+        users = (List<ImdbUser>)repository.findAll();
     }
 
     @PostConstruct
     public void findUsers()
     {
-        users = (List<ImdbUser>)repository.findAll();
     }
 
     @Override

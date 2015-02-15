@@ -23,7 +23,8 @@ public class MovieRatingWriter implements ItemWriter<List<MovieRating>>
             {
                 try
                 {
-                    repository.save(movieRating);
+                    MovieRating mr = repository.save(movieRating);
+                    int a = 0;
                 }
                 catch (Exception e)
                 {
