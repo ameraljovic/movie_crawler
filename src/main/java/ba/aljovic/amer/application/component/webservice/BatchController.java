@@ -81,10 +81,10 @@ public class BatchController
         return "User ratings job started";
     }
 
-    @RequestMapping(value = "/imdbRatings/{jobId}", method = RequestMethod.GET)
-    public String imdbRatingsJob(@PathVariable Long jobId) throws Exception
+    @RequestMapping(value = "/imdbRatings/{jobId}/{threadSize}", method = RequestMethod.GET)
+    public String imdbRatingsJob(@PathVariable Long jobId, @PathVariable Long threadSize) throws Exception
     {
-        userRatingsJobLauncher.launchImdbRatingsJob(jobId);
+        userRatingsJobLauncher.launchImdbRatingsJob(jobId, threadSize);
         return "User ratings job started";
     }
 

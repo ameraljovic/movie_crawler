@@ -19,10 +19,13 @@ public class ImdbUserReader implements ItemStreamReader<ImdbUser>
     private final Long fromId;
     private List<Long> userIds;
     private int userCount;
-
-    @Autowired
     private ImdbUsersRepository repository;
 
+    @Autowired
+    public void setRepository(ImdbUsersRepository repository)
+    {
+        this.repository = repository;
+    }
 
     public ImdbUserReader(Long fromId, Long toId)
     {
@@ -35,10 +38,12 @@ public class ImdbUserReader implements ItemStreamReader<ImdbUser>
     {
         userIds = new ArrayList<>();
         List<ImdbUser> users = repository.findUsersByRange(fromId, toId);
+        long start = System.nanoTime();
         userIds.addAll(users
                 .stream()
                 .map(ImdbUser::getId)
                 .collect(Collectors.toList()));
+        System.out.println("Time: " + ((System.nanoTime() - start) / 1000_000) + " ms.") ;
     }
 
 

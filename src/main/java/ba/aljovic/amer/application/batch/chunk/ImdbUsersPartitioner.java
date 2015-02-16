@@ -15,10 +15,14 @@ public class ImdbUsersPartitioner implements Partitioner
     public static final String FROM_ID = "fromId";
     public static final String TO_ID = "toId";
     private List<ImdbUser> users;
+    private Long threadSize;
 
-    public ImdbUsersPartitioner(ImdbUsersRepository repository)
+    public ImdbUsersPartitioner(ImdbUsersRepository repository, Long threadSize)
     {
         users = (List<ImdbUser>)repository.findAll();
+
+        assert threadSize > 0;
+        this.threadSize = threadSize;
     }
 
     @PostConstruct
@@ -29,15 +33,14 @@ public class ImdbUsersPartitioner implements Partitioner
     @Override
     public Map<String, ExecutionContext> partition(int gridSize)
     {
-        assert gridSize > 0;
         Map<String, ExecutionContext> result = new HashMap<>();
-        Integer partitionSize = users.size() / gridSize;
-        Integer leftOver = users.size() - partitionSize * gridSize;
+        Long partitionSize = users.size() / threadSize;
+        Long leftOver = users.size() - partitionSize * threadSize;
         Long fromId = users.get(0).getId();
-        for (int i = 0; i < gridSize; i++)
+        for (int i = 0; i < threadSize; i++)
         {
             Long toId = fromId + partitionSize - 1;
-            if (i == gridSize - 1) toId += leftOver;
+            if (i == threadSize - 1) toId += leftOver;
             ExecutionContext value = new ExecutionContext();
             value.putLong(FROM_ID, fromId);
             value.putLong(TO_ID, toId);

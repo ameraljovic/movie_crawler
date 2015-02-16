@@ -37,6 +37,11 @@ public class UserRatingsJobLauncher extends BaseJobLauncher
         return jobLauncher.run(imdbRatingsJob, createJobParameters(jobId));
     }
 
+    public JobExecution launchImdbRatingsJob(Long jobId, Long threadSize) throws Exception
+    {
+        return jobLauncher.run(imdbRatingsJob, createJobParametersWithThreadSize(jobId, threadSize));
+    }
+
     public JobExecution launchImdbRatingsJob() throws Exception
     {
         return jobLauncher.run(imdbRatingsJob, createJobParameters());

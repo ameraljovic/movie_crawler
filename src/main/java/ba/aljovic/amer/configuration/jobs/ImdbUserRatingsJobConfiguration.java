@@ -48,7 +48,7 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
     {
         return stepBuilder.get("getMovieRatingsMasterStep")
                 .partitioner(getMovieRatingsSlaveStep())
-                .partitioner("getMovieRatingsSlaveStep", imdbUsersPartitioner())
+                .partitioner("getMovieRatingsSlaveStep", imdbUsersPartitioner(null))
                 .taskExecutor(asyncTaskExecutor)
                 .gridSize(1)
                 .build();
@@ -96,9 +96,10 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
     }
 
     @Bean
-    public Partitioner imdbUsersPartitioner()
+    @StepScope
+    public Partitioner imdbUsersPartitioner(@Value("#{jobParameters['THREAD_SIZE']}") Long threadSize)
     {
-        return new ImdbUsersPartitioner(imdbUsersRepository);
+        return new ImdbUsersPartitioner(imdbUsersRepository, threadSize);
     }
 
     @Bean

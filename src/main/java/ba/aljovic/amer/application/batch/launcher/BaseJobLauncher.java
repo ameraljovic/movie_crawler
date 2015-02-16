@@ -44,4 +44,15 @@ public class BaseJobLauncher
         jobParameters = builder.toJobParameters();
         return jobParameters;
     }
+
+
+    protected static JobParameters createJobParametersWithThreadSize(Long jobId, Long threadSize)
+    {
+        JobParameters jobParameters;
+        JobParametersBuilder builder = new JobParametersBuilder();
+        builder.addLong("JOB_ID", jobId);
+        builder.addLong("THREAD_SIZE", threadSize);
+        jobParameters = builder.toJobParameters();
+        return jobParameters;
+    }
 }
