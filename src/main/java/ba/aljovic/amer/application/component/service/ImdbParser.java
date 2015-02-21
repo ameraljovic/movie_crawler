@@ -106,7 +106,7 @@ public class ImdbParser
         {
             if (link.attr("href").contains("/ratings"))
             {
-                return link.attr("href");
+                return link.attr("href").replaceAll("http://www.imdb.com", "");
             }
         }
         return null;
@@ -155,7 +155,6 @@ public class ImdbParser
             if (link.attr("href").contains("?start") && link.text().contains("Next"))
             {
                 return link.attr("href");
-
             }
         }
         return null;
