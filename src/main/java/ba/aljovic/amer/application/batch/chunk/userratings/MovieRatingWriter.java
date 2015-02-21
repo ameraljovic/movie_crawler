@@ -15,22 +15,13 @@ public class MovieRatingWriter implements ItemWriter<List<MovieRating>>
     @Override
     public void write(List<? extends List<MovieRating>> movieRatings) throws Exception
     {
-        //movieRatings.forEach(repository::save);
-
-        for (List<MovieRating> list : movieRatings)
+        try
         {
-            for (MovieRating movieRating : list)
-            {
-                try
-                {
-                    MovieRating mr = repository.save(movieRating);
-                    int a = 0;
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
+            movieRatings.forEach(repository::save);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 }
