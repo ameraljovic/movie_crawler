@@ -24,6 +24,10 @@ public class MovieRating
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private ImdbUser user;
 
+    public MovieRating()
+    {
+    }
+
     public MovieRating(int rating, Movie movie, ImdbUser user)
     {
         this.rating = rating;
