@@ -38,12 +38,10 @@ public class ImdbUserReader implements ItemStreamReader<ImdbUser>
     {
         userIds = new ArrayList<>();
         List<ImdbUser> users = repository.findUsersByRange(fromId, toId);
-        long start = System.nanoTime();
         userIds.addAll(users
                 .stream()
                 .map(ImdbUser::getId)
                 .collect(Collectors.toList()));
-        System.out.println("Time: " + ((System.nanoTime() - start) / 1000_000) + " ms.") ;
     }
 
 
@@ -52,7 +50,7 @@ public class ImdbUserReader implements ItemStreamReader<ImdbUser>
     {
         try
         {
-            if (userCount <= userIds.size() && !userIds.isEmpty())
+            if (userCount < userIds.size() && !userIds.isEmpty())
             {
                 return repository.findOne(userIds.get(userCount));
             }

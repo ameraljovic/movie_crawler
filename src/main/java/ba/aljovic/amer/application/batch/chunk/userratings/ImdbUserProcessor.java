@@ -38,10 +38,13 @@ public class ImdbUserProcessor implements ItemProcessor<ImdbUser, List<MovieRati
         do
         {
             ratingsHtml = httpRetriever.retrieveDocument(ratingsUrl);
-            List<MovieRating> movieRatingsForPage = imdbParser.getRatingsForPage(ratingsHtml, user);
-            movieRatings.addAll(movieRatingsForPage);
+            if (ratingsHtml != null)
+            {
+                List<MovieRating> movieRatingsForPage = imdbParser.getRatingsForPage(ratingsHtml, user);
+                movieRatings.addAll(movieRatingsForPage);
+                ratingsUrl = user.getUrl() + "ratings" + imdbParser.nextUserRatingsPage(ratingsHtml);
+            }
 
-            ratingsUrl = user.getUrl() + "ratings" + imdbParser.nextUserRatingsPage(ratingsHtml);
         } while (imdbParser.nextUserRatingsPage(ratingsHtml) != null);
         return movieRatings;
     }
