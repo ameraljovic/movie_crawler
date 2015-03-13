@@ -48,5 +48,14 @@ public class GenomeValue
     {
         this.genome = genome;
     }
+
+    @Override
+    public String toString()
+    {
+        return "GenomeValue{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+
     //endregion
 }
