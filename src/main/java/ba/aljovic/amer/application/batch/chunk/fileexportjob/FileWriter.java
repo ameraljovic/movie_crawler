@@ -23,12 +23,12 @@ public class FileWriter
     {
         allGenomes = (List<GenomeMapping>)genomeMappingRepository.findAll();
 
-        File file = new File("./build/" + user.getUsername() + ".txt");
+        File file = new File("movie-ratings/" + user.getUsername() + ".txt");
         try
         {
             if (!file.exists())
             {
-                file.createNewFile();
+                file.getParentFile().mkdirs();
             }
             bw = new BufferedWriter(new java.io.FileWriter(file));
         }
