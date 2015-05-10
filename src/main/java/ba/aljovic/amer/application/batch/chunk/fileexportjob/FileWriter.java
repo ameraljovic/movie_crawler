@@ -19,18 +19,18 @@ public class FileWriter
     private final List<GenomeMapping> allGenomes;
     private BufferedWriter bw;
 
-    public FileWriter(GenomeMappingRepository genomeMappingRepository, ImdbUser user)
+    public FileWriter(GenomeMappingRepository genomeMappingRepository, ImdbUser user, String folder)
     {
         allGenomes = (List<GenomeMapping>)genomeMappingRepository.findAll();
 
-        File file = new File("movie-ratings/" + user.getUsername() + ".txt");
+        File fileTraining = new File(folder + "/" + user.getUsername() + ".txt");
         try
         {
-            if (!file.exists())
+            if (!fileTraining.exists())
             {
-                file.getParentFile().mkdirs();
+                fileTraining.getParentFile().mkdirs();
             }
-            bw = new BufferedWriter(new java.io.FileWriter(file));
+            bw = new BufferedWriter(new java.io.FileWriter(fileTraining));
         }
         catch (IOException e)
         {
@@ -69,7 +69,10 @@ public class FileWriter
                 .collect(Collectors.toList());
         allGenomes.forEach(genome -> {
 
-            sb.append(genomes.stream().map(GenomeValue::getName).collect(Collectors.toList()).contains(genome.getName())
+            sb.append(genomes.stream()
+                    .map(GenomeValue::getName)
+                    .collect(Collectors.toList())
+                    .contains(genome.getName())
                     ? 1 : 0);
             sb.append(":");
         });
