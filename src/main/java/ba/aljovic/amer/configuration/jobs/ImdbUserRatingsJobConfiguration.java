@@ -133,7 +133,9 @@ public class ImdbUserRatingsJobConfiguration extends JobConfiguration
     @Bean
     public ItemProcessor<ImdbUser, List<MovieRating>> imdbUserProcessor()
     {
-        return new ImdbUserProcessor();
+        ImdbUserProcessor userProcessor = new ImdbUserProcessor();
+        userProcessor.setMaxNumberOfAttempts(500);
+        return userProcessor;
     }
 
     @Bean
